@@ -334,7 +334,7 @@
               >
             </div>
             <div class="md:col-span-2 space-y-4">
-              <p class="text-sm font-bold text-primary-container mr-2">المخالفين</p>
+              <p class="text-sm font-bold text-primary-container mr-2">المخالفين <span class="text-error">*</span></p>
               <p class="text-xs text-on-surface-variant mr-2 mb-2">حدد النوع ثم أدخل العدد عند التفعيل</p>
               <div class="space-y-4 rounded-2xl border border-outline-variant/40 bg-surface-container-low/30 p-4">
                 <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="hajj_visa">
@@ -364,6 +364,23 @@
                       type="number"
                       id="viol_num_residence_outside"
                       name="viol_num_residence_outside"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="family">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_family" name="viol_cb_family" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>أسرة</span>
+                  </label>
+                  <div id="viol_num_wrap_family" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_family"
+                      name="viol_num_family"
                       min="0"
                       step="1"
                       class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
@@ -467,34 +484,8 @@
                 placeholder=" "
               />
               <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="meter_name"
-                >اسم المعد</label
-              >
-            </div>
-            <div class="relative floating-label-container">
-              <input
-                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                id="hajj_1"
-                name="hajj_1"
-                placeholder=" "
-                type="text"
-              />
-              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="hajj_1"
-                >أنظمة الحج</label
-              >
-              <p class="mt-1 text-xs text-on-surface-variant mr-4 italic">اكتب التفاصيل...</p>
-            </div>
-            <div class="relative floating-label-container">
-              <input
-                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                id="hajj_2"
-                name="hajj_2"
-                placeholder=" "
-                type="text"
-              />
-              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="hajj_2"
-                >أنظمة الإقامة والحج</label
-              >
-              <p class="mt-1 text-xs text-on-surface-variant mr-4 italic">اكتب التفاصيل...</p>
+                >اسم مدخل البيانات
+              </label>
             </div>
             <div class="md:col-span-2 relative floating-label-container">
               <textarea

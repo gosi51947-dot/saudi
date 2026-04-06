@@ -30,8 +30,6 @@ var COLUMN_HEADERS = [
   "violators",
   "violators_breakdown",
   "meter_name",
-  "hajj_1",
-  "hajj_2",
   "notes",
 ];
 
@@ -67,8 +65,6 @@ function doPost(e) {
       data.violators || "",
       data.violators_breakdown || data.violators_detail || "",
       data.meter_name || "",
-      data.hajj_1 || "",
-      data.hajj_2 || "",
       data.notes || "",
     ];
 

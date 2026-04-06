@@ -28,6 +28,7 @@
   var VIOLATION_KEYS = [
     "hajj_visa",
     "residence_outside",
+    "family",
     "unknown_identity",
     "shelter_violator",
     "covering_violator",
@@ -219,13 +220,28 @@
     return { list: list, total: total, json: JSON.stringify(list) };
   }
 
+  function hasAnyViolationChecked() {
+    for (var i = 0; i < VIOLATION_KEYS.length; i++) {
+      var cb = $("viol_cb_" + VIOLATION_KEYS[i]);
+      if (cb && cb.checked) return true;
+    }
+    return false;
+  }
+
   function violationsValidationError() {
+    if (!hasAnyViolationChecked()) {
+      return "يرجى تحديد نوع المخالفين وإدخال العدد";
+    }
     for (var i = 0; i < VIOLATION_KEYS.length; i++) {
       var key = VIOLATION_KEYS[i];
       var cb = $("viol_cb_" + key);
       if (!cb || !cb.checked) continue;
       var n = parseViolNum(key);
       if (n === null) return "يرجى إدخال عدد صحيح (٠ أو أكثر) لكل نوع مخالفة تم تحديده";
+    }
+    var viol = collectViolationsPayload();
+    if (viol.total < 1) {
+      return "يرجى إدخال عدد مخالفين واحد على الأقل";
     }
     return null;
   }
@@ -257,8 +273,6 @@
       violators: String(viol.total),
       violators_breakdown: viol.json,
       violators_detail: viol.json,
-      hajj_1: valTrim("hajj_1"),
-      hajj_2: valTrim("hajj_2"),
       notes: valTrim("notes"),
       secret: typeof CONFIG !== "undefined" && CONFIG.formSecret ? CONFIG.formSecret : "",
     };
@@ -370,8 +384,6 @@
       setv("coords", coordsVal);
       setv("meter_num", d.meter_num);
       setv("meter_name", d.meter_name);
-      setv("hajj_1", d.hajj_1);
-      setv("hajj_2", d.hajj_2);
       setv("notes", d.notes);
       setv("hijri_date", d.hijri_date);
 
