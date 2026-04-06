@@ -371,23 +371,6 @@
                     />
                   </div>
                 </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="family">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_family" name="viol_cb_family" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>أسرة</span>
-                  </label>
-                  <div id="viol_num_wrap_family" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_family"
-                      name="viol_num_family"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
                 <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="unknown_identity">
                   <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
                     <input type="checkbox" id="viol_cb_unknown_identity" name="viol_cb_unknown_identity" class="survey-checkbox mt-1 rounded cursor-pointer" />
@@ -473,6 +456,31 @@
                     />
                   </div>
                 </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4" data-viol-key="other">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface sm:pt-3">
+                    <input type="checkbox" id="viol_cb_other" name="viol_cb_other" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>اخري</span>
+                  </label>
+                  <div id="viol_num_wrap_other" class="hidden w-full flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 sm:flex-1 sm:min-w-0">
+                    <input
+                      type="text"
+                      id="viol_label_other"
+                      name="viol_label_other"
+                      class="w-full flex-1 min-w-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="اسم النوع"
+                      autocomplete="off"
+                    />
+                    <input
+                      type="number"
+                      id="viol_num_other"
+                      name="viol_num_other"
+                      min="0"
+                      step="1"
+                      class="w-full sm:w-40 shrink-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="relative floating-label-container">
@@ -546,14 +554,19 @@
 
 
 
-    <!-- ضبط: Cloudinary (اسم السحابة + preset رفع غير موقّع) وعنوان نشر Apps Script -->
+    <!-- ضبط: انسخ js/config.example.js إلى js/config.js واملأ الحقول (config.js مستبعد من git) -->
+    <script src="js/config.js"></script>
     <script>
-      window.CONFIG = {
-        cloudName: "",
-        uploadPreset: "",
-        appsScriptUrl: "",
-        formSecret: "",
-      };
+      if (typeof window.CONFIG === "undefined") {
+        window.CONFIG = {
+          cloudName: "",
+          uploadPreset: "",
+          appsScriptUrl: "",
+          formSecret: "",
+          cloudinaryApiKey: "",
+          cloudinaryApiSecret: "",
+        };
+      }
     </script>
     <script src="js/upload.js"></script>
     <script src="js/form.js"></script>

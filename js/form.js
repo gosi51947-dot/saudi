@@ -28,13 +28,17 @@
   var VIOLATION_KEYS = [
     "hajj_visa",
     "residence_outside",
-    "family",
     "unknown_identity",
     "shelter_violator",
     "covering_violator",
     "transporter_violator",
     "security_wanted",
+    "other",
   ];
+
+  function violOtherLabelTrim() {
+    return valTrim("viol_label_other");
+  }
 
   function $(id) {
     return document.getElementById(id);
@@ -146,6 +150,10 @@
     } else {
       wrap.classList.add("hidden");
       if (num) num.value = "";
+      if (key === "other") {
+        var lo = $("viol_label_other");
+        if (lo) lo.value = "";
+      }
     }
   }
 
@@ -190,6 +198,10 @@
         });
         var num = $("viol_num_" + key);
         if (num) num.addEventListener("input", updateSubmitButtonState);
+        if (key === "other") {
+          var lo = $("viol_label_other");
+          if (lo) lo.addEventListener("input", updateSubmitButtonState);
+        }
       })(VIOLATION_KEYS[i]);
     }
     syncAllViolationRows();
@@ -214,7 +226,9 @@
       if (!cb || !cb.checked) continue;
       var n = parseViolNum(key);
       if (n === null) continue;
-      list.push({ key: key, count: n });
+      var entry = { key: key, count: n };
+      if (key === "other") entry.label = violOtherLabelTrim();
+      list.push(entry);
       total += n;
     }
     return { list: list, total: total, json: JSON.stringify(list) };
@@ -238,6 +252,9 @@
       if (!cb || !cb.checked) continue;
       var n = parseViolNum(key);
       if (n === null) return "يرجى إدخال عدد صحيح (٠ أو أكثر) لكل نوع مخالفة تم تحديده";
+      if (key === "other" && !violOtherLabelTrim()) {
+        return "يرجى كتابة اسم النوع للخيار «اخري»";
+      }
     }
     var viol = collectViolationsPayload();
     if (viol.total < 1) {
@@ -339,7 +356,7 @@
     }
   }
 
-  function setCheckboxAndNumber(key, checked, countVal) {
+  function setCheckboxAndNumber(key, checked, countVal, labelVal) {
     var cb = $("viol_cb_" + key);
     var num = $("viol_num_" + key);
     if (cb) {
@@ -347,6 +364,16 @@
     }
     if (num && countVal != null && countVal !== "") {
       num.value = String(countVal);
+    }
+    if (key === "other") {
+      var lo = $("viol_label_other");
+      if (lo) {
+        if (!checked) {
+          lo.value = "";
+        } else if (labelVal != null && labelVal !== "") {
+          lo.value = String(labelVal);
+        }
+      }
     }
     syncViolationRow(key);
   }
@@ -398,7 +425,7 @@
             for (var j = 0; j < arr.length; j++) {
               var item = arr[j];
               if (item && item.key) {
-                setCheckboxAndNumber(item.key, true, item.count);
+                setCheckboxAndNumber(item.key, true, item.count, item.label);
               }
             }
           }
