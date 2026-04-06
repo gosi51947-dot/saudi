@@ -253,6 +253,7 @@
       coord_x: "",
       coord_y: "",
       meter_num: valTrim("meter_num"),
+      meter_name: valTrim("meter_name"),
       violators: String(viol.total),
       violators_breakdown: viol.json,
       violators_detail: viol.json,
@@ -368,6 +369,7 @@
       }
       setv("coords", coordsVal);
       setv("meter_num", d.meter_num);
+      setv("meter_name", d.meter_name);
       setv("hajj_1", d.hajj_1);
       setv("hajj_2", d.hajj_2);
       setv("notes", d.notes);
