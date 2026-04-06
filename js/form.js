@@ -1,5 +1,39 @@
 (function () {
-  var DRAFT_KEY = "survey_form_draft_v2";
+  var DRAFT_KEY = "survey_form_draft_v3";
+
+  /** Preset hay options (excludes «اخري») — used to restore drafts with custom neighborhood names */
+  var HAY_PRESET_VALUES = [
+    "الرصيفة",
+    "حوش بكر",
+    "الاسكان",
+    "الشوقية",
+    "الهنداوية",
+    "المنصور",
+    "الخالدية",
+    "الخالدية2",
+    "السبهاني",
+    "جرهم",
+    "المحمدية",
+  ];
+
+  function isHayPresetValue(v) {
+    var s = v != null ? String(v).trim() : "";
+    if (!s) return false;
+    for (var i = 0; i < HAY_PRESET_VALUES.length; i++) {
+      if (HAY_PRESET_VALUES[i] === s) return true;
+    }
+    return false;
+  }
+
+  var VIOLATION_KEYS = [
+    "hajj_visa",
+    "residence_outside",
+    "unknown_identity",
+    "shelter_violator",
+    "covering_violator",
+    "transporter_violator",
+    "security_wanted",
+  ];
 
   function $(id) {
     return document.getElementById(id);
@@ -10,19 +44,27 @@
     return el && el.value != null ? String(el.value).trim() : "";
   }
 
-  function isFiniteNumberString(s) {
-    if (s === "" || s == null) return false;
-    var n = parseFloat(String(s).replace(",", "."));
-    return Number.isFinite(n);
-  }
-
-  function violatorsIsValid() {
-    var el = $("violators");
-    if (!el) return false;
-    var raw = el.value;
-    if (raw === "" || raw == null) return false;
-    var n = typeof el.valueAsNumber === "number" && !isNaN(el.valueAsNumber) ? el.valueAsNumber : parseInt(String(raw), 10);
-    return Number.isFinite(n) && n >= 0;
+  function setHijriDateHidden() {
+    var el = $("hijri_date");
+    if (!el) return;
+    try {
+      var s = new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(new Date());
+      el.value = s;
+    } catch (e1) {
+      try {
+        el.value = new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }).format(new Date());
+      } catch (e2) {
+        el.value = "";
+      }
+    }
   }
 
   function showError(msg) {
@@ -77,98 +119,143 @@
     if (btn.setAttribute) btn.setAttribute("aria-disabled", ok ? "false" : "true");
   }
 
-  function getActiveSquareIndex() {
-    for (var i = 1; i <= 4; i++) {
-      if (valTrim("square_" + i)) return i;
-    }
-    return 0;
-  }
-
-  function neighborhoodFinal() {
-    var idx = getActiveSquareIndex();
-    if (!idx) return "";
-    var v = valTrim("square_" + idx);
-    if (v === "أخرى") return valTrim("hay_other");
-    return v;
+  function syncBuildingOtherWrap() {
+    var wrap = $("building_other_wrap");
+    var sel = $("building_type");
+    if (!wrap || !sel) return;
+    if ((sel.value || "").trim() === "اخري") wrap.classList.remove("hidden");
+    else wrap.classList.add("hidden");
   }
 
   function syncHayOtherWrap() {
     var wrap = $("hay_other_wrap");
-    if (!wrap) return;
-    var idx = getActiveSquareIndex();
-    if (idx && valTrim("square_" + idx) === "أخرى") wrap.classList.remove("hidden");
+    var sel = $("hay");
+    if (!wrap || !sel) return;
+    if ((sel.value || "").trim() === "اخري") wrap.classList.remove("hidden");
     else wrap.classList.add("hidden");
   }
 
-  function applySquareMutex(changedIndex) {
-    var sel = $("square_" + changedIndex);
-    if (!sel) return;
-    var v = (sel.value || "").trim();
-    if (!v) {
-      var hoClear = $("hay_other");
-      if (hoClear) hoClear.value = "";
-      for (var j = 1; j <= 4; j++) {
-        var s = $("square_" + j);
-        if (s) s.disabled = false;
-      }
-      syncHayOtherWrap();
-      updateSubmitButtonState();
-      return;
+  function syncViolationRow(key) {
+    var cb = $("viol_cb_" + key);
+    var wrap = $("viol_num_wrap_" + key);
+    var num = $("viol_num_" + key);
+    if (!cb || !wrap) return;
+    if (cb.checked) {
+      wrap.classList.remove("hidden");
+    } else {
+      wrap.classList.add("hidden");
+      if (num) num.value = "";
     }
-    for (var k = 1; k <= 4; k++) {
-      var t = $("square_" + k);
-      if (!t) continue;
-      if (k === changedIndex) {
-        t.disabled = false;
-      } else {
-        t.disabled = true;
-        t.value = "";
-      }
-    }
-    if (v !== "أخرى") {
-      var hoN = $("hay_other");
-      if (hoN) hoN.value = "";
-    }
-    syncHayOtherWrap();
-    updateSubmitButtonState();
   }
 
-  function bindHaySection() {
-    for (var i = 1; i <= 4; i++) {
-      (function (idx) {
-        var el = $("square_" + idx);
-        if (!el) return;
-        el.addEventListener("change", function () {
-          applySquareMutex(idx);
-        });
-      })(i);
+  function syncAllViolationRows() {
+    for (var i = 0; i < VIOLATION_KEYS.length; i++) {
+      syncViolationRow(VIOLATION_KEYS[i]);
     }
+  }
+
+  function bindBuildingType() {
+    var sel = $("building_type");
+    if (!sel) return;
+    sel.addEventListener("change", function () {
+      syncBuildingOtherWrap();
+      updateSubmitButtonState();
+    });
+    var bo = $("building_other");
+    if (bo) bo.addEventListener("input", updateSubmitButtonState);
+    syncBuildingOtherWrap();
+  }
+
+  function bindHay() {
+    var sel = $("hay");
+    if (!sel) return;
+    sel.addEventListener("change", function () {
+      syncHayOtherWrap();
+      updateSubmitButtonState();
+    });
     var ho = $("hay_other");
     if (ho) ho.addEventListener("input", updateSubmitButtonState);
     syncHayOtherWrap();
   }
 
+  function bindViolationSection() {
+    for (var i = 0; i < VIOLATION_KEYS.length; i++) {
+      (function (key) {
+        var cb = $("viol_cb_" + key);
+        if (!cb) return;
+        cb.addEventListener("change", function () {
+          syncViolationRow(key);
+          updateSubmitButtonState();
+        });
+        var num = $("viol_num_" + key);
+        if (num) num.addEventListener("input", updateSubmitButtonState);
+      })(VIOLATION_KEYS[i]);
+    }
+    syncAllViolationRows();
+  }
+
+  function parseViolNum(key) {
+    var cb = $("viol_cb_" + key);
+    var numEl = $("viol_num_" + key);
+    if (!cb || !cb.checked || !numEl) return null;
+    var raw = numEl.value;
+    if (raw === "" || raw == null) return null;
+    var n = typeof numEl.valueAsNumber === "number" && !isNaN(numEl.valueAsNumber) ? numEl.valueAsNumber : parseInt(String(raw), 10);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+
+  function collectViolationsPayload() {
+    var list = [];
+    var total = 0;
+    for (var i = 0; i < VIOLATION_KEYS.length; i++) {
+      var key = VIOLATION_KEYS[i];
+      var cb = $("viol_cb_" + key);
+      if (!cb || !cb.checked) continue;
+      var n = parseViolNum(key);
+      if (n === null) continue;
+      list.push({ key: key, count: n });
+      total += n;
+    }
+    return { list: list, total: total, json: JSON.stringify(list) };
+  }
+
+  function violationsValidationError() {
+    for (var i = 0; i < VIOLATION_KEYS.length; i++) {
+      var key = VIOLATION_KEYS[i];
+      var cb = $("viol_cb_" + key);
+      if (!cb || !cb.checked) continue;
+      var n = parseViolNum(key);
+      if (n === null) return "يرجى إدخال عدد صحيح (٠ أو أكثر) لكل نوع مخالفة تم تحديده";
+    }
+    return null;
+  }
+
   function collectPayload() {
     var m = window.__surveyMedia || { siteImageUrls: [], siteVideoUrl: null };
-    var hay = neighborhoodFinal();
+    var haySelect = valTrim("hay");
+    var hayVal = haySelect === "اخري" ? valTrim("hay_other") : haySelect;
+    var squareZone = valTrim("square_zone");
+    var buildingType = valTrim("building_type");
+    var buildingOther = buildingType === "اخري" ? valTrim("building_other") : "";
+    var viol = collectViolationsPayload();
+
     return {
       timestamp: new Date().toISOString(),
+      hijri_date: valTrim("hijri_date"),
       shift: valTrim("shift"),
-      hay: hay,
-      square_1: hay,
-      square_1_other: "",
-      square_2: "",
-      square_2_other: "",
-      square_3: "",
-      square_3_other: "",
-      square_4: "",
-      square_4_other: "",
+      square_zone: squareZone,
+      hay: hayVal,
+      building_type: buildingType,
+      building_other: buildingOther,
       site_image_urls: JSON.stringify(m.siteImageUrls || []),
       site_video_url: m.siteVideoUrl || "",
-      coord_x: valTrim("coord_x"),
-      coord_y: valTrim("coord_y"),
+      coords: valTrim("coords"),
+      coord_x: "",
+      coord_y: "",
       meter_num: valTrim("meter_num"),
-      violators: valTrim("violators"),
+      violators: String(viol.total),
+      violators_breakdown: viol.json,
+      violators_detail: viol.json,
       hajj_1: valTrim("hajj_1"),
       hajj_2: valTrim("hajj_2"),
       notes: valTrim("notes"),
@@ -179,17 +266,18 @@
   function validateFormFields() {
     if (!$("survey-form")) return "النموذج غير متوفر";
 
-    if (!valTrim("shift")) return "يرجى إدخال الوردية";
+    if (!valTrim("shift")) return "يرجى اختيار الوردية";
+    if (!valTrim("square_zone")) return "يرجى اختيار المربع";
+    if (!valTrim("hay")) return "يرجى اختيار الحي";
+    if (valTrim("hay") === "اخري" && !valTrim("hay_other")) return "يرجى كتابة اسم الحي";
+    if (!valTrim("building_type")) return "يرجى اختيار نوع المبني";
+    if (valTrim("building_type") === "اخري" && !valTrim("building_other")) return "يرجى كتابة تفصيل نوع المبني";
 
-    var active = getActiveSquareIndex();
-    if (!active) return "يرجى اختيار الحي من أحد المربعات";
-    var sv = valTrim("square_" + active);
-    if (sv === "أخرى" && !valTrim("hay_other")) return "يرجى كتابة تفاصيل «أخرى»";
-
-    if (!isFiniteNumberString(valTrim("coord_x"))) return "يرجى إدخال خط الطول (X) كرقم صالح";
-    if (!isFiniteNumberString(valTrim("coord_y"))) return "يرجى إدخال خط العرض (Y) كرقم صالح";
+    if (!valTrim("coords")) return "يرجى إدخال الإحداثيات";
     if (!valTrim("meter_num")) return "يرجى إدخال رقم عداد الكهرباء";
-    if (!violatorsIsValid()) return "يرجى إدخال عدد المخالفين (رقم صحيح ٠ أو أكثر)";
+
+    var vErr = violationsValidationError();
+    if (vErr) return vErr;
 
     return null;
   }
@@ -236,6 +324,18 @@
     }
   }
 
+  function setCheckboxAndNumber(key, checked, countVal) {
+    var cb = $("viol_cb_" + key);
+    var num = $("viol_num_" + key);
+    if (cb) {
+      cb.checked = !!checked;
+    }
+    if (num && countVal != null && countVal !== "") {
+      num.value = String(countVal);
+    }
+    syncViolationRow(key);
+  }
+
   function loadDraft() {
     try {
       var raw = localStorage.getItem(DRAFT_KEY);
@@ -248,71 +348,77 @@
         if (el) el.value = v;
       }
       setv("shift", d.shift);
-      var hayVal = d.hay != null && String(d.hay).trim() !== "" ? String(d.hay).trim() : "";
-      if (!hayVal && d.square_1) hayVal = String(d.square_1).trim();
-      if (!hayVal) {
-        for (var k = 1; k <= 4; k++) {
-          var key = "square_" + k;
-          if (d[key] == null || String(d[key]).trim() === "") continue;
-          var xv = String(d[key]).trim();
-          if (xv === "أخرى" && d[key + "_other"] != null && String(d[key + "_other"]).trim() !== "") {
-            hayVal = String(d[key + "_other"]).trim();
-          } else if (xv !== "أخرى") {
-            hayVal = xv;
-          }
-          break;
-        }
+      setv("square_zone", d.square_zone);
+      setv("hay", d.hay);
+      setv("building_type", d.building_type);
+      setv("building_other", d.building_other);
+      syncBuildingOtherWrap();
+      syncHayOtherWrap();
+
+      var coordsVal = d.coords;
+      if (
+        (coordsVal == null || String(coordsVal).trim() === "") &&
+        (d.coord_x != null || d.coord_y != null)
+      ) {
+        var cx = d.coord_x != null ? String(d.coord_x).trim() : "";
+        var cy = d.coord_y != null ? String(d.coord_y).trim() : "";
+        coordsVal = [cx, cy].filter(function (x) {
+          return x !== "";
+        }).join(" ، ");
       }
-      var loaded = false;
-      for (var si = 1; si <= 4 && !loaded; si++) {
-        var sEl = $("square_" + si);
-        if (!sEl) continue;
-        var opts = Array.prototype.slice.call(sEl.options).map(function (o) {
-          return o.value;
-        });
-        for (var oi = 0; oi < opts.length; oi++) {
-          var ov = opts[oi];
-          if (!ov || ov === "أخرى") continue;
-          if (ov === hayVal) {
-            sEl.value = ov;
-            applySquareMutex(si);
-            loaded = true;
-            break;
-          }
-        }
-      }
-      if (!loaded && hayVal) {
-        for (var sj = 1; sj <= 4; sj++) {
-          var sEl2 = $("square_" + sj);
-          if (!sEl2) continue;
-          var hasOther = Array.prototype.slice.call(sEl2.options).some(function (o) {
-            return o.value === "أخرى";
-          });
-          if (hasOther) {
-            sEl2.value = "أخرى";
-            setv("hay_other", hayVal);
-            applySquareMutex(sj);
-            loaded = true;
-            break;
-          }
-        }
-      }
-      setv("coord_x", d.coord_x);
-      setv("coord_y", d.coord_y);
+      setv("coords", coordsVal);
       setv("meter_num", d.meter_num);
-      setv("violators", d.violators);
       setv("hajj_1", d.hajj_1);
       setv("hajj_2", d.hajj_2);
       setv("notes", d.notes);
-      syncHayOtherWrap();
+      setv("hijri_date", d.hijri_date);
+
+      var breakdown = d.violators_breakdown || d.violators_detail;
+      if (breakdown) {
+        try {
+          var arr = typeof breakdown === "string" ? JSON.parse(breakdown) : breakdown;
+          if (Array.isArray(arr)) {
+            for (var i = 0; i < VIOLATION_KEYS.length; i++) {
+              setCheckboxAndNumber(VIOLATION_KEYS[i], false, "");
+            }
+            for (var j = 0; j < arr.length; j++) {
+              var item = arr[j];
+              if (item && item.key) {
+                setCheckboxAndNumber(item.key, true, item.count);
+              }
+            }
+          }
+        } catch (e) {}
+      } else if (d.violators != null && String(d.violators).trim() !== "") {
+        /* legacy single count — ignore for new form */
+      }
+
+      syncAllViolationRows();
       updateSubmitButtonState();
     } catch (e) {}
   }
 
+  function resetViolationUi() {
+    for (var i = 0; i < VIOLATION_KEYS.length; i++) {
+      var key = VIOLATION_KEYS[i];
+      var cb = $("viol_cb_" + key);
+      var num = $("viol_num_" + key);
+      if (cb) cb.checked = false;
+      if (num) num.value = "";
+      syncViolationRow(key);
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    setHijriDateHidden();
     var form = $("survey-form");
-    bindHaySection();
+    bindBuildingType();
+    bindHay();
+    bindViolationSection();
     loadDraft();
+    if (!$("hijri_date") || !valTrim("hijri_date")) {
+      setHijriDateHidden();
+    }
     updateSubmitButtonState();
 
     if (form) {
@@ -326,13 +432,10 @@
     var resetBtn = $("btn-reset");
     if (resetBtn && form) {
       resetBtn.addEventListener("click", function () {
-        for (var j = 1; j <= 4; j++) {
-          var sq = $("square_" + j);
-          if (sq) sq.disabled = false;
-        }
         form.reset();
-        var how = $("hay_other_wrap");
-        if (how) how.classList.add("hidden");
+        resetViolationUi();
+        var bow = $("building_other_wrap");
+        if (bow) bow.classList.add("hidden");
         if (typeof window.__surveyMediaReset === "function") {
           window.__surveyMediaReset();
         }
@@ -340,7 +443,10 @@
           localStorage.removeItem(DRAFT_KEY);
         } catch (e) {}
         hideMessages();
+        setHijriDateHidden();
+        syncBuildingOtherWrap();
         syncHayOtherWrap();
+        syncAllViolationRows();
         updateSubmitButtonState();
       });
     }
@@ -364,17 +470,20 @@
         submitToSheet(payload)
           .then(function () {
             showSuccess("تم إرسال البيانات بنجاح. شكراً لك.");
-            for (var j = 1; j <= 4; j++) {
-              var sq = $("square_" + j);
-              if (sq) sq.disabled = false;
-            }
             form.reset();
+            resetViolationUi();
+            var bow = $("building_other_wrap");
+            if (bow) bow.classList.add("hidden");
             var how = $("hay_other_wrap");
             if (how) how.classList.add("hidden");
             if (typeof window.__surveyMediaReset === "function") {
               window.__surveyMediaReset();
             }
             localStorage.removeItem(DRAFT_KEY);
+            setHijriDateHidden();
+            syncBuildingOtherWrap();
+            syncHayOtherWrap();
+            syncAllViolationRows();
             updateSubmitButtonState();
           })
           .catch(function (err) {

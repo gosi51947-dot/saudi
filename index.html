@@ -106,6 +106,10 @@
         <h1 class="text-2xl xl:whitespace-nowrap  lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#fff6d9] via-[#e8d49a] to-[#b38e36] mb-6" style="line-height: 1.5; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">
           نتائج أعمال المنطقة الخامسة
         </h1>
+
+        <h3 class="text-2xl md:text-4xl font-bold text-[#e8d49a]/95 tracking-wide mt-2 mb-2 drop-shadow-md">
+          عقيد / فهد بن محماس العتيبي
+        </h3>
         
         <h2 class="text-2xl md:text-4xl lg:text-3xl font-bold text-[#c9a44a]   tracking-widest mt-4 drop-shadow-lg">
           — مهمة الإخلاء —
@@ -136,6 +140,8 @@
       </div>
 
       <form id="survey-form" class="space-y-8" novalidate>
+        <input type="hidden" id="hijri_date" name="hijri_date" value="" />
+
         <section
           class="glass-card rounded-[2rem] p-8 shadow-2xl shadow-black/5 relative overflow-hidden border border-white/50"
         >
@@ -147,100 +153,115 @@
             <label class="block text-sm font-bold text-primary-container mr-2" for="shift"
               >الوردية <span class="text-error" aria-hidden="true">*</span></label
             >
-            <input
-              type="text"
+            <select
               id="shift"
               name="shift"
+              class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
               autocomplete="off"
-              class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-              placeholder="أدخل الوردية"
-            />
+              required
+            >
+              <option value="" selected disabled>اختر الوردية</option>
+              <option value="الأولي">الأولي</option>
+              <option value="الثانية">الثانية</option>
+              <option value="الثالثة">الثالثة</option>
+              <option value="الرابعة">الرابعة</option>
+            </select>
           </div>
 
           <div
             class="border-2 border-dashed border-outline-variant/70 rounded-2xl p-4 md:p-6 bg-surface-container-low/40"
           >
-            <h3 class="text-lg font-bold text-primary-container mb-4 pb-2 border-b border-outline-variant/40">
-              الحي <span class="text-error" aria-hidden="true">*</span>
-            </h3>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label class="block text-sm font-bold text-primary-container mr-2" for="square_1">المربع ١</label>
-                <select
-                  class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                  id="square_1"
-                  name="square_1"
-                  autocomplete="off"
+                <label class="block text-sm font-bold text-primary-container mr-2" for="square_zone"
+                  >المربع <span class="text-error" aria-hidden="true">*</span></label
                 >
-                  <option value="" selected>اختر الحي</option>
-                  <option value="حي الخالدية (١)">حي الخالدية (١)</option>
-                  <option value="حي الخالدية (٢)">حي الخالدية (٢)</option>
-                  <option value="طريق جرهم">طريق جرهم</option>
-                  <option value="شارع المنصور">شارع المنصور</option>
-                  <option value="حي الهنداوية">حي الهنداوية</option>
-                  <option value="أخرى">أخرى</option>
+                <select
+                  class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+                  id="square_zone"
+                  name="square_zone"
+                  autocomplete="off"
+                  required
+                >
+                  <option value="" selected disabled>اختر المربع</option>
+                  <option value="الاول">الاول</option>
+                  <option value="الثاني">الثاني</option>
+                  <option value="الثالث">الثالث</option>
+                  <option value="الرابع">الرابع</option>
                 </select>
               </div>
               <div class="space-y-2">
-                <label class="block text-sm font-bold text-primary-container mr-2" for="square_2">المربع ٢</label>
-                <select
-                  class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                  id="square_2"
-                  name="square_2"
-                  autocomplete="off"
+                <label class="block text-sm font-bold text-primary-container mr-2" for="hay"
+                  >الحي <span class="text-error" aria-hidden="true">*</span></label
                 >
-                  <option value="" selected>اختر الحي</option>
+                <select
+                  class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+                  id="hay"
+                  name="hay"
+                  autocomplete="off"
+                  required
+                >
+                  <option value="" selected disabled>اختر الحي</option>
                   <option value="الرصيفة">الرصيفة</option>
-                  <option value="الإسكان">الإسكان</option>
-                  <option value="أخرى">أخرى</option>
+                  <option value="حوش بكر">حوش بكر</option>
+                  <option value="الاسكان">الاسكان</option>
+                  <option value="الشوقية">الشوقية</option>
+                  <option value="الهنداوية">الهنداوية</option>
+                  <option value="المنصور">المنصور</option>
+                  <option value="الخالدية">الخالدية</option>
+                  <option value="الخالدية2">الخالدية2</option>
+                  <option value="السبهاني">السبهاني</option>
+                  <option value="جرهم">جرهم</option>
+                  <option value="المحمدية">المحمدية</option>
+                  <option value="اخري">اخري</option>
                 </select>
               </div>
-              <div class="space-y-2">
-                <label class="block text-sm font-bold text-primary-container mr-2" for="square_3">المربع ٣</label>
-                <select
-                  class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                  id="square_3"
-                  name="square_3"
-                  autocomplete="off"
+              <div id="hay_other_wrap" class="hidden space-y-2 md:col-span-2">
+                <label class="block text-sm font-bold text-primary-container mr-2" for="hay_other"
+                  >اسم الحي <span class="text-error" aria-hidden="true">*</span></label
                 >
-                  <option value="" selected>اختر الحي</option>
-                  <option value="حي الشوقية">حي الشوقية</option>
-                  <option value="حي الربوة">حي الربوة</option>
-                  <option value="حي أم الكتاد">حي أم الكتاد</option>
-                  <option value="حي الكعكية">حي الكعكية</option>
-                  <option value="أخرى">أخرى</option>
-                </select>
-              </div>
-              <div class="space-y-2">
-                <label class="block text-sm font-bold text-primary-container mr-2" for="square_4">المربع ٤</label>
-                <select
-                  class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                  id="square_4"
-                  name="square_4"
+                <input
+                  id="hay_other"
+                  name="hay_other"
+                  type="text"
                   autocomplete="off"
-                >
-                  <option value="" selected>اختر الحي</option>
-                  <option value="حي السبهاني">حي السبهاني</option>
-                  <option value="حي المحمدية">حي المحمدية</option>
-                  <option value="شارع عبدالله كوشك">شارع عبدالله كوشك</option>
-                  <option value="مخطط الشافعي">مخطط الشافعي</option>
-                  <option value="أخرى">أخرى</option>
-                </select>
+                  class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                  placeholder="اكتب اسم الحي..."
+                />
               </div>
             </div>
-            <div id="hay_other_wrap" class="hidden mt-6 space-y-2">
-              <label class="block text-sm font-bold text-primary-container mr-2" for="hay_other"
-                >أخرى <span class="text-error" aria-hidden="true">*</span></label
-              >
-              <input
-                id="hay_other"
-                name="hay_other"
-                type="text"
-                autocomplete="off"
-                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                placeholder="اكتب اسم الحي..."
-              />
-            </div>
+          </div>
+
+          <div class="space-y-2 mt-6">
+            <label class="block text-sm font-bold text-primary-container mr-2" for="building_type"
+              >نوع المبني <span class="text-error" aria-hidden="true">*</span></label
+            >
+            <select
+              id="building_type"
+              name="building_type"
+              class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+              autocomplete="off"
+              required
+            >
+              <option value="" selected disabled>اختر نوع المبني</option>
+              <option value="شقة">شقة</option>
+              <option value="فيلا">فيلا</option>
+              <option value="اخري">اخري</option>
+            </select>
+          </div>
+          <div id="building_other_wrap" class="hidden mt-4 space-y-2">
+            <label class="block text-sm font-bold text-primary-container mr-2" for="building_other"
+              >تفصيل نوع المبني <span class="text-error" aria-hidden="true">*</span></label
+            >
+            <input
+              id="building_other"
+              name="building_other"
+              type="text"
+              autocomplete="off"
+              class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+              placeholder="اكتب نوع المبني..."
+            />
           </div>
         </section>
 
@@ -285,40 +306,20 @@
             البيانات التقنية والميدانية
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="md:col-span-2 space-y-4">
-              <label class="block text-sm font-bold text-primary-container mr-2"
-                >الإحداثيات <span class="text-error" aria-hidden="true">*</span></label
+            <div class="relative floating-label-container">
+              <input
+                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
+                id="coords"
+                name="coords"
+                type="text"
+                autocomplete="off"
+                placeholder=" "
+                required
+                aria-required="true"
+              />
+              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="coords"
+                >الإحداثيات <span class="text-error">*</span></label
               >
-              <div class="grid grid-cols-2 gap-4">
-                <div class="relative floating-label-container">
-                  <input
-                    class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                    id="coord_x"
-                    name="coord_x"
-                    placeholder=" "
-                    type="number"
-                    inputmode="decimal"
-                    step="any"
-                  />
-                  <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="coord_x"
-                    >خط الطول (X) <span class="text-error">*</span></label
-                  >
-                </div>
-                <div class="relative floating-label-container">
-                  <input
-                    class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                    id="coord_y"
-                    name="coord_y"
-                    placeholder=" "
-                    type="number"
-                    inputmode="decimal"
-                    step="any"
-                  />
-                  <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="coord_y"
-                    >خط العرض (Y) <span class="text-error">*</span></label
-                  >
-                </div>
-              </div>
             </div>
             <div class="relative floating-label-container">
               <input
@@ -332,19 +333,130 @@
                 >رقم عداد الكهرباء <span class="text-error">*</span></label
               >
             </div>
-            <div class="relative floating-label-container">
-              <input
-                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                id="violators"
-                name="violators"
-                placeholder=" "
-                type="number"
-                min="0"
-                step="1"
-              />
-              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="violators"
-                >عدد المخالفين <span class="text-error">*</span></label
-              >
+            <div class="md:col-span-2 space-y-4">
+              <p class="text-sm font-bold text-primary-container mr-2">المخالفين</p>
+              <p class="text-xs text-on-surface-variant mr-2 mb-2">حدد النوع ثم أدخل العدد عند التفعيل</p>
+              <div class="space-y-4 rounded-2xl border border-outline-variant/40 bg-surface-container-low/30 p-4">
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="hajj_visa">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_hajj_visa" name="viol_cb_hajj_visa" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>مخالف انظمة الحج (التأشيرات)</span>
+                  </label>
+                  <div id="viol_num_wrap_hajj_visa" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_hajj_visa"
+                      name="viol_num_hajj_visa"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="residence_outside">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_residence_outside" name="viol_cb_residence_outside" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>مخالف نظام الاقامة (خارج مكة)</span>
+                  </label>
+                  <div id="viol_num_wrap_residence_outside" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_residence_outside"
+                      name="viol_num_residence_outside"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="unknown_identity">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_unknown_identity" name="viol_cb_unknown_identity" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>مجهول هوية</span>
+                  </label>
+                  <div id="viol_num_wrap_unknown_identity" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_unknown_identity"
+                      name="viol_num_unknown_identity"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="shelter_violator">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_shelter_violator" name="viol_cb_shelter_violator" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>ايواء مخالف</span>
+                  </label>
+                  <div id="viol_num_wrap_shelter_violator" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_shelter_violator"
+                      name="viol_num_shelter_violator"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="covering_violator">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_covering_violator" name="viol_cb_covering_violator" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>تستر على مخالف</span>
+                  </label>
+                  <div id="viol_num_wrap_covering_violator" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_covering_violator"
+                      name="viol_num_covering_violator"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="transporter_violator">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_transporter_violator" name="viol_cb_transporter_violator" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>ناقل مخالف</span>
+                  </label>
+                  <div id="viol_num_wrap_transporter_violator" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_transporter_violator"
+                      name="viol_num_transporter_violator"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="security_wanted">
+                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                    <input type="checkbox" id="viol_cb_security_wanted" name="viol_cb_security_wanted" class="survey-checkbox mt-1 rounded cursor-pointer" />
+                    <span>مطلوب امني</span>
+                  </label>
+                  <div id="viol_num_wrap_security_wanted" class="hidden w-full sm:w-40 shrink-0">
+                    <input
+                      type="number"
+                      id="viol_num_security_wanted"
+                      name="viol_num_security_wanted"
+                      min="0"
+                      step="1"
+                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                      placeholder="العدد"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="relative floating-label-container">
               <input
