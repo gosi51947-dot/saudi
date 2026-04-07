@@ -275,7 +275,7 @@
   }
 
   function collectPayload() {
-    var m = window.__surveyMedia || { siteImageUrls: [], siteVideoUrl: null };
+    var m = window.__surveyMedia || { siteImages: [], siteVideo: null };
     var haySelect = valTrim("hay");
     var hayVal = haySelect === "اخري" ? valTrim("hay_other") : haySelect;
     var squareZone = valTrim("square_zone");
@@ -283,6 +283,12 @@
     var buildingOther =
       buildingType === "اخري" ? valTrim("building_other") : "";
     var viol = collectViolationsPayload();
+
+    // Extract image URLs directly from siteImages array
+    var imageUrls = (m.siteImages || []).map(function (img) {
+      return img.url;
+    });
+    var videoUrl = m.siteVideo ? m.siteVideo.url : null;
 
     return {
       timestamp: new Date().toISOString(),
@@ -292,8 +298,8 @@
       hay: hayVal,
       building_type: buildingType,
       building_other: buildingOther,
-      site_image_urls: JSON.stringify(m.siteImageUrls || []),
-      site_video_url: m.siteVideoUrl || "",
+      site_image_urls: JSON.stringify(imageUrls || []),
+      site_video_url: videoUrl || "",
       coords: valTrim("coords"),
       coord_x: "",
       coord_y: "",
