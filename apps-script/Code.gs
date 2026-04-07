@@ -7,7 +7,7 @@
  * 4) انشر: Deploy → New deployment → New version.
  */
 
-var SPREADSHEET_ID = "1BufLddkzDY2CZjoemoZEZvbGBDn1ky788gHCR5ODb54";
+var SPREADSHEET_ID = "19sCmbEhI-NxuU7d-w5Gz6gx9xMEB_ZxcPwOZ1tXRjhE";
 var SHEET_NAME = "Sheet1";
 var FORMS_SECRET = "";
 
@@ -29,8 +29,8 @@ var COLUMN_HEADERS = [
   "رقم عداد الكهرباء",
   "إجمالي المخالفين",
   "تفاصيل المخالفين (النوع والعدد)",
-  "اسم المعد",
   "ملاحظات",
+  "اسم المعد",
 ];
 
 // خريطة ترجمة مفاتيح المخالفات للغة العربية
@@ -103,8 +103,8 @@ function doPost(e) {
       data.meter_num || "", // 15
       data.violators || "", // 16
       violText, // 17
-      data.meter_name || "", // 18
-      data.notes || "", // 19
+      data.notes || "", // 18
+      data.meter_name || "", // 19
     ];
 
     sheet.appendRow(row);
@@ -123,11 +123,48 @@ function doPost(e) {
       setCellLink(sheet, lastRow, 13, videoUrl, "فتح الفيديو");
     }
 
+    // ── تحويل الإحداثيات إلى رابط Google Maps (14)
+    if (data.coords) {
+      var coordsUrl = coordsToGoogleMapsLink(data.coords);
+      if (coordsUrl) {
+        setCellLink(sheet, lastRow, 14, coordsUrl, data.coords);
+      }
+    }
+
     applyRowStyling(sheet, lastRow);
 
     return jsonResponse({ ok: true });
   } catch (err) {
     return jsonResponse({ ok: false, error: String(err.message || err) });
+  }
+}
+
+/**
+ * تحويل الإحداثيات إلى رابط Google Maps
+ * تتعامل مع صيغة: "26.2777371, 50.1830249"
+ */
+function coordsToGoogleMapsLink(coordsString) {
+  try {
+    if (!coordsString) return null;
+
+    // إزالة المسافات وتنظيف النص
+    var cleaned = coordsString.trim().replace(/[()]/g, "").trim();
+
+    // فصل بين الإحداثيات
+    var parts = cleaned.split(/[,;]/);
+    if (parts.length < 2) return null;
+
+    var lat = parseFloat(parts[0].trim());
+    var lng = parseFloat(parts[1].trim());
+
+    // التحقق من صحة الإحداثيات
+    if (isNaN(lat) || isNaN(lng)) return null;
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) return null;
+
+    // إنشاء رابط Google Maps
+    return "https://maps.google.com/?q=" + lat + "," + lng;
+  } catch (e) {
+    return null;
   }
 }
 
@@ -183,6 +220,9 @@ function ensureHeaderRow(sheet) {
       .setVerticalAlignment("middle");
     sheet.setRowHeight(1, 40);
   }
+
+  // ── تعيين اتجاه الورقة من اليمين لليسار (RTL)
+  sheet.setRightToLeft(true);
 }
 
 /**
