@@ -1,574 +1,488 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>نتائج أعمال المنطقة — نموذج المسح</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "surface-bright": "#f8f9fa",
-              "secondary-container": "#fed65b",
-              "secondary-fixed": "#ffe088",
-              "on-tertiary-container": "#b5785f",
-              "surface-variant": "#e1e3e4",
-              "tertiary-fixed": "#ffdbce",
-              "surface-container-highest": "#e1e3e4",
-              "on-secondary-container": "#745c00",
-              "on-error": "#ffffff",
-              "inverse-on-surface": "#f0f1f2",
-              "surface-container-high": "#e7e8e9",
-              "on-error-container": "#93000a",
-              "on-primary": "#ffffff",
-              "on-surface-variant": "#43474e",
-              "on-primary-fixed": "#001c3a",
-              surface: "#f8f9fa",
-              "on-secondary-fixed-variant": "#574500",
-              "on-tertiary-fixed-variant": "#6b3a25",
-              "primary-fixed": "#d4e3ff",
-              outline: "#74777f",
-              "inverse-primary": "#afc8f0",
-              secondary: "#735c00",
-              "on-secondary-fixed": "#241a00",
-              "inverse-surface": "#2e3132",
-              "on-surface": "#191c1d",
-              error: "#ba1a1a",
-              "tertiary-fixed-dim": "#fdb69a",
-              "on-tertiary": "#ffffff",
-              "primary-fixed-dim": "#afc8f0",
-              "on-tertiary-fixed": "#351002",
-              "secondary-fixed-dim": "#e9c349",
-              "on-background": "#191c1d",
-              "surface-container-low": "#f3f4f5",
-              "tertiary-container": "#391303",
-              "on-primary-fixed-variant": "#2f486a",
-              "on-secondary": "#ffffff",
-              "primary-container": "#001f3f",
-              "surface-tint": "#476083",
-              tertiary: "#110200",
-              "surface-dim": "#d9dadb",
-              "error-container": "#ffdad6",
-              "on-primary-container": "#6f88ad",
-              primary: "#000613",
-              "surface-container": "#edeeef",
-              "surface-container-lowest": "#ffffff",
-              background: "#f8f9fa",
-              "outline-variant": "#c4c6cf",
-            },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              full: "9999px",
-            },
-            fontFamily: {
-              headline: ["Tajawal", "Plus Jakarta Sans"],
-              body: ["Tajawal", "Plus Jakarta Sans"],
-              label: ["Tajawal", "Plus Jakarta Sans"],
-              hero: ["Noto Kufi Arabic", "sans-serif"],
-            },
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>نتائج أعمال المنطقة — نموذج المسح</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#f8f9fa",
+            "secondary-container": "#fed65b",
+            "secondary-fixed": "#ffe088",
+            "on-tertiary-container": "#b5785f",
+            "surface-variant": "#e1e3e4",
+            "tertiary-fixed": "#ffdbce",
+            "surface-container-highest": "#e1e3e4",
+            "on-secondary-container": "#745c00",
+            "on-error": "#ffffff",
+            "inverse-on-surface": "#f0f1f2",
+            "surface-container-high": "#e7e8e9",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#43474e",
+            "on-primary-fixed": "#001c3a",
+            surface: "#f8f9fa",
+            "on-secondary-fixed-variant": "#574500",
+            "on-tertiary-fixed-variant": "#6b3a25",
+            "primary-fixed": "#d4e3ff",
+            outline: "#74777f",
+            "inverse-primary": "#afc8f0",
+            secondary: "#735c00",
+            "on-secondary-fixed": "#241a00",
+            "inverse-surface": "#2e3132",
+            "on-surface": "#191c1d",
+            error: "#ba1a1a",
+            "tertiary-fixed-dim": "#fdb69a",
+            "on-tertiary": "#ffffff",
+            "primary-fixed-dim": "#afc8f0",
+            "on-tertiary-fixed": "#351002",
+            "secondary-fixed-dim": "#e9c349",
+            "on-background": "#191c1d",
+            "surface-container-low": "#f3f4f5",
+            "tertiary-container": "#391303",
+            "on-primary-fixed-variant": "#2f486a",
+            "on-secondary": "#ffffff",
+            "primary-container": "#001f3f",
+            "surface-tint": "#476083",
+            tertiary: "#110200",
+            "surface-dim": "#d9dadb",
+            "error-container": "#ffdad6",
+            "on-primary-container": "#6f88ad",
+            primary: "#000613",
+            "surface-container": "#edeeef",
+            "surface-container-lowest": "#ffffff",
+            background: "#f8f9fa",
+            "outline-variant": "#c4c6cf",
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px",
+          },
+          fontFamily: {
+            headline: ["Tajawal", "Plus Jakarta Sans"],
+            body: ["Tajawal", "Plus Jakarta Sans"],
+            label: ["Tajawal", "Plus Jakarta Sans"],
+            hero: ["Noto Kufi Arabic", "sans-serif"],
           },
         },
-      };
-    </script>
-  </head>
-  <body
-    class="main-gradient-bg min-h-screen selection:bg-white/25 selection:text-white"
-  >
-    <header class="font-hero min-h-screen bg-[#4A696C] flex flex-col items-center justify-center relative overflow-hidden shadow-2xl z-10 border-b-4 border-[#c9a44a]">
-      <!-- Background Image -->
-      <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('images/background.png');"></div>
-      
-      <!-- Subtle texture over the background -->
-      <div class="absolute inset-0 z-0 opacity-10" style="background-image: radial-gradient(#c9a44a 1px, transparent 1px); background-size: 32px 32px;"></div>
-      
-      <div class="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center justify-center">
-        <!-- Premium accent top -->
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-16 md:w-32 h-[2px] bg-gradient-to-l from-[#c9a44a] to-transparent"></div>
-          <span class="material-symbols-outlined text-[#c9a44a] text-3xl drop-shadow-md">account_balance</span>
-          <div class="w-16 md:w-32 h-[2px] bg-gradient-to-r from-[#c9a44a] to-transparent"></div>
-        </div>
+      },
+    };
+  </script>
+</head>
 
-        <h1 class="text-2xl xl:whitespace-nowrap  lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#fff6d9] via-[#e8d49a] to-[#b38e36] mb-6" style="line-height: 1.5; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">
-          نتائج أعمال المنطقة الخامسة
-        </h1>
+<body class="main-gradient-bg min-h-screen selection:bg-white/25 selection:text-white">
+  <header
+    class="font-hero min-h-screen bg-[#4A696C] flex flex-col items-center justify-center relative overflow-hidden shadow-2xl z-10 border-b-4 border-[#c9a44a]">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('images/background.png');"></div>
 
-        <h3 class="text-2xl md:text-4xl font-bold text-[#e8d49a]/95 tracking-wide mt-2 mb-2 drop-shadow-md">
-          عقيد / فهد بن محماس العتيبي
-        </h3>
-        
-        <h2 class="text-2xl md:text-4xl lg:text-3xl font-bold text-[#c9a44a]   tracking-widest mt-4 drop-shadow-lg">
-          — مهمة الإخلاء —
+    <!-- Subtle texture over the background -->
+    <div class="absolute inset-0 z-0 opacity-10"
+      style="background-image: radial-gradient(#c9a44a 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center justify-center">
+      <!-- Logos Section -->
+      <div class="flex items-center justify-center gap-8 md:gap-12 mb-10">
+        <img src="images/logo1.png" alt="شعار وزارة الداخلية"
+          class="h-36 md:h-40 w-auto drop-shadow-lg hover:scale-105 transition-transform">
+        <img src="images/logo2.png" alt="شعار مجلس الوزراء"
+          class="h-36 md:h-40 w-auto drop-shadow-lg hover:scale-105 transition-transform">
+      </div>
+
+      <!-- Premium accent top -->
+      <div class="flex items-center gap-4 mb-8">
+        <div class="w-16 md:w-32 h-[2px] bg-gradient-to-l from-[#c9a44a] to-transparent"></div>
+        <span class="material-symbols-outlined text-[#c9a44a] text-3xl drop-shadow-md">account_balance</span>
+        <div class="w-16 md:w-32 h-[2px] bg-gradient-to-r from-[#c9a44a] to-transparent"></div>
+      </div>
+
+      <h1
+        class="text-2xl xl:whitespace-nowrap  lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#fff6d9] via-[#e8d49a] to-[#b38e36] mb-6"
+        style="line-height: 1.5; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">
+        نتائج أعمال المنطقة الخامسة
+      </h1>
+
+      <h3 class="text-2xl md:text-4xl font-bold text-[#e8d49a]/95 tracking-wide mt-2 mb-2 drop-shadow-md">
+        عقيد / فهد بن محماس العصيمي
+      </h3>
+
+      <h2 class="text-2xl md:text-4xl lg:text-3xl font-bold text-[#c9a44a]   tracking-widest mt-4 drop-shadow-lg">
+        — مهمة الإخلاء —
+      </h2>
+
+      <!-- Premium accent bottom -->
+      <div class="flex items-center gap-4 mt-12">
+        <div class="w-16 md:w-32 h-[2px] bg-gradient-to-l from-[#c9a44a] to-transparent"></div>
+        <span class="material-symbols-outlined text-[#c9a44a] text-3xl drop-shadow-md">verified_user</span>
+        <div class="w-16 md:w-32 h-[2px] bg-gradient-to-r from-[#c9a44a] to-transparent"></div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 animate-bounce opacity-90 flex flex-col items-center cursor-default">
+      <span class="text-[#e8d49a] text-sm font-bold tracking-widest mb-2 drop-shadow-md">نموذج البيانات</span>
+      <span class="material-symbols-outlined text-[#e8d49a] text-4xl drop-shadow-md">keyboard_double_arrow_down</span>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-16 relative text-on-surface">
+    <div class="w-full h-1 progress-track rounded-full mb-12 overflow-hidden">
+      <div class="h-full progress-fill w-1/3 rounded-full transition-all duration-700" id="progress-bar"></div>
+    </div>
+    <div class="mb-10 text-center">
+      <a href="#survey-form" class="text-3xl  font-bold text-[#c9a44a] mb-4 block">نموذج البيانات</a>
+      <p class="page-hero-sub text-lg">يرجى استكمال كافة البيانات بدقة لضمان جودة المسح</p>
+    </div>
+
+    <form id="survey-form" class="space-y-8" novalidate>
+      <input type="hidden" id="hijri_date" name="hijri_date" value="" />
+
+      <section
+        class="glass-card rounded-[2rem] p-8 shadow-2xl shadow-black/5 relative overflow-hidden border border-white/50">
+        <h2 class="text-2xl font-bold text-primary-container mb-8 flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary">assignment</span>
+          المعلومات الأساسية
         </h2>
-
-        <!-- Premium accent bottom -->
-        <div class="flex items-center gap-4 mt-12">
-          <div class="w-16 md:w-32 h-[2px] bg-gradient-to-l from-[#c9a44a] to-transparent"></div>
-          <span class="material-symbols-outlined text-[#c9a44a] text-3xl drop-shadow-md">verified_user</span>
-          <div class="w-16 md:w-32 h-[2px] bg-gradient-to-r from-[#c9a44a] to-transparent"></div>
+        <div class="space-y-2 mb-6">
+          <label class="block text-sm font-bold text-primary-container mr-2" for="shift">الوردية <span
+              class="text-error" aria-hidden="true">*</span></label>
+          <select id="shift" name="shift"
+            class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+            autocomplete="off" required>
+            <option value="" selected disabled>اختر الوردية</option>
+            <option value="الأولي">الأولي</option>
+            <option value="الثانية">الثانية</option>
+            <option value="الثالثة">الثالثة</option>
+            <option value="الرابعة">الرابعة</option>
+          </select>
         </div>
-      </div>
-      
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-10 animate-bounce opacity-90 flex flex-col items-center cursor-default">
-        <span class="text-[#e8d49a] text-sm font-bold tracking-widest mb-2 drop-shadow-md">نموذج البيانات</span>
-        <span class="material-symbols-outlined text-[#e8d49a] text-4xl drop-shadow-md">keyboard_double_arrow_down</span>
-      </div>
-    </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-16 relative text-on-surface">
-      <div class="w-full h-1 progress-track rounded-full mb-12 overflow-hidden">
-        <div class="h-full progress-fill w-1/3 rounded-full transition-all duration-700" id="progress-bar"></div>
-      </div>
-      <div class="mb-10 text-center">
-        <a href="#survey-form" class="text-3xl  font-bold text-[#c9a44a] mb-4 block">نموذج البيانات</a>
-        <p class="page-hero-sub text-lg">يرجى استكمال كافة البيانات بدقة لضمان جودة المسح</p>
-      </div>
+        <div
+          class="border-2 border-dashed border-outline-variant/70 rounded-2xl p-4 md:p-6 bg-surface-container-low/40">
 
-      <form id="survey-form" class="space-y-8" novalidate>
-        <input type="hidden" id="hijri_date" name="hijri_date" value="" />
-
-        <section
-          class="glass-card rounded-[2rem] p-8 shadow-2xl shadow-black/5 relative overflow-hidden border border-white/50"
-        >
-          <h2 class="text-2xl font-bold text-primary-container mb-8 flex items-center gap-3">
-            <span class="material-symbols-outlined text-secondary">assignment</span>
-            المعلومات الأساسية
-          </h2>
-          <div class="space-y-2 mb-6">
-            <label class="block text-sm font-bold text-primary-container mr-2" for="shift"
-              >الوردية <span class="text-error" aria-hidden="true">*</span></label
-            >
-            <select
-              id="shift"
-              name="shift"
-              class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
-              autocomplete="off"
-              required
-            >
-              <option value="" selected disabled>اختر الوردية</option>
-              <option value="الأولي">الأولي</option>
-              <option value="الثانية">الثانية</option>
-              <option value="الثالثة">الثالثة</option>
-              <option value="الرابعة">الرابعة</option>
-            </select>
-          </div>
-
-          <div
-            class="border-2 border-dashed border-outline-variant/70 rounded-2xl p-4 md:p-6 bg-surface-container-low/40"
-          >
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="block text-sm font-bold text-primary-container mr-2" for="square_zone"
-                  >المربع <span class="text-error" aria-hidden="true">*</span></label
-                >
-                <select
-                  class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
-                  id="square_zone"
-                  name="square_zone"
-                  autocomplete="off"
-                  required
-                >
-                  <option value="" selected disabled>اختر المربع</option>
-                  <option value="الاول">الاول</option>
-                  <option value="الثاني">الثاني</option>
-                  <option value="الثالث">الثالث</option>
-                  <option value="الرابع">الرابع</option>
-                </select>
-              </div>
-              <div class="space-y-2">
-                <label class="block text-sm font-bold text-primary-container mr-2" for="hay"
-                  >الحي <span class="text-error" aria-hidden="true">*</span></label
-                >
-                <select
-                  class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
-                  id="hay"
-                  name="hay"
-                  autocomplete="off"
-                  required
-                >
-                  <option value="" selected disabled>اختر الحي</option>
-                  <option value="الرصيفة">الرصيفة</option>
-                  <option value="حوش بكر">حوش بكر</option>
-                  <option value="الاسكان">الاسكان</option>
-                  <option value="الشوقية">الشوقية</option>
-                  <option value="الهنداوية">الهنداوية</option>
-                  <option value="المنصور">المنصور</option>
-                  <option value="الخالدية">الخالدية</option>
-                  <option value="الخالدية2">الخالدية2</option>
-                  <option value="السبهاني">السبهاني</option>
-                  <option value="جرهم">جرهم</option>
-                  <option value="المحمدية">المحمدية</option>
-                  <option value="اخري">اخري</option>
-                </select>
-              </div>
-              <div id="hay_other_wrap" class="hidden space-y-2 md:col-span-2">
-                <label class="block text-sm font-bold text-primary-container mr-2" for="hay_other"
-                  >اسم الحي <span class="text-error" aria-hidden="true">*</span></label
-                >
-                <input
-                  id="hay_other"
-                  name="hay_other"
-                  type="text"
-                  autocomplete="off"
-                  class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                  placeholder="اكتب اسم الحي..."
-                />
-              </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="block text-sm font-bold text-primary-container mr-2" for="square_zone">المربع <span
+                  class="text-error" aria-hidden="true">*</span></label>
+              <select
+                class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+                id="square_zone" name="square_zone" autocomplete="off" required>
+                <option value="" selected disabled>اختر المربع</option>
+                <option value="الاول">الاول</option>
+                <option value="الثاني">الثاني</option>
+                <option value="الثالث">الثالث</option>
+                <option value="الرابع">الرابع</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="block text-sm font-bold text-primary-container mr-2" for="hay">الحي <span class="text-error"
+                  aria-hidden="true">*</span></label>
+              <select
+                class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+                id="hay" name="hay" autocomplete="off" required>
+                <option value="" selected disabled>اختر الحي</option>
+                <option value="الرصيفة">الرصيفة</option>
+                <option value="حوش بكر">حوش بكر</option>
+                <option value="الاسكان">الاسكان</option>
+                <option value="الشوقية">الشوقية</option>
+                <option value="الهنداوية">الهنداوية</option>
+                <option value="المنصور">المنصور</option>
+                <option value="الخالدية">الخالدية</option>
+                <option value="الخالدية2">الخالدية2</option>
+                <option value="السبهاني">السبهاني</option>
+                <option value="جرهم">جرهم</option>
+                <option value="المحمدية">المحمدية</option>
+                <option value="اخري">اخري</option>
+              </select>
+            </div>
+            <div id="hay_other_wrap" class="hidden space-y-2 md:col-span-2">
+              <label class="block text-sm font-bold text-primary-container mr-2" for="hay_other">اسم الحي <span
+                  class="text-error" aria-hidden="true">*</span></label>
+              <input id="hay_other" name="hay_other" type="text" autocomplete="off"
+                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                placeholder="اكتب اسم الحي..." />
             </div>
           </div>
+        </div>
 
-          <div class="space-y-2 mt-6">
-            <label class="block text-sm font-bold text-primary-container mr-2" for="building_type"
-              >نوع المبني <span class="text-error" aria-hidden="true">*</span></label
-            >
-            <select
-              id="building_type"
-              name="building_type"
-              class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
-              autocomplete="off"
-              required
-            >
-              <option value="" selected disabled>اختر نوع المبني</option>
-              <option value="شقة">شقة</option>
-              <option value="فيلا">فيلا</option>
-              <option value="اخري">اخري</option>
-            </select>
+        <div class="space-y-2 mt-6">
+          <label class="block text-sm font-bold text-primary-container mr-2" for="building_type">نوع المبني <span
+              class="text-error" aria-hidden="true">*</span></label>
+          <select id="building_type" name="building_type"
+            class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+            autocomplete="off" required>
+            <option value="" selected disabled>اختر نوع المبني</option>
+            <option value="شقة">شقة</option>
+            <option value="فيلا">فيلا</option>
+            <option value="اخري">اخري</option>
+          </select>
+        </div>
+        <div id="building_other_wrap" class="hidden mt-4 space-y-2">
+          <label class="block text-sm font-bold text-primary-container mr-2" for="building_other">تفصيل نوع المبني <span
+              class="text-error" aria-hidden="true">*</span></label>
+          <input id="building_other" name="building_other" type="text" autocomplete="off"
+            class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+            placeholder="اكتب نوع المبني..." />
+        </div>
+      </section>
+
+      <section class="glass-card rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-white/50">
+        <h2 class="text-2xl font-bold text-primary-container mb-8 flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary">photo_camera</span>
+          التوثيق البصري
+        </h2>
+        <div class="space-y-4 max-w-2xl mx-auto">
+          <label class="block text-sm font-bold text-primary-container mr-2" for="site-input">صورة الموقع أو
+            الفيديو</label>
+          <p class="text-xs text-on-surface-variant mr-2">حتى 5 صور أو فيديو واحد — اختياري</p>
+          <input type="file" id="site-input" name="site_files" accept="image/*,video/*" multiple class="hidden" />
+          <button type="button" id="site-dropzone"
+            class="border-2 border-dashed border-outline-variant rounded-2xl p-8 flex flex-col items-center justify-center bg-surface-container-lowest hover:bg-secondary/5 hover:border-secondary transition-all cursor-pointer group w-full">
+            <span
+              class="material-symbols-outlined text-4xl text-outline group-hover:text-secondary mb-2 transition-colors">cloud_upload</span>
+            <p class="text-sm text-on-surface-variant font-medium">اسحب الملفات هنا أو اضغط للرفع</p>
+            <p id="site-status" class="text-xs text-secondary mt-2 min-h-[1.25rem]"></p>
+          </button>
+          <div id="site-preview-wrap" class="hidden mt-4 space-y-3">
+            <div id="site-images-row" class="flex flex-wrap gap-2"></div>
+            <div id="site-video-wrap" class="hidden">
+              <video id="site-preview-video" class="max-h-48 w-full max-w-md rounded-lg border border-outline-variant"
+                controls></video>
+              <button type="button" id="site-video-remove" class="mt-2 text-sm text-error font-medium">
+                إزالة الفيديو
+              </button>
+            </div>
           </div>
-          <div id="building_other_wrap" class="hidden mt-4 space-y-2">
-            <label class="block text-sm font-bold text-primary-container mr-2" for="building_other"
-              >تفصيل نوع المبني <span class="text-error" aria-hidden="true">*</span></label
-            >
+        </div>
+      </section>
+
+      <section class="glass-card rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-white/50">
+        <h2 class="text-2xl font-bold text-primary-container mb-8 flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary">analytics</span>
+          البيانات التقنية والميدانية
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="relative floating-label-container">
             <input
-              id="building_other"
-              name="building_other"
-              type="text"
-              autocomplete="off"
-              class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-              placeholder="اكتب نوع المبني..."
-            />
+              class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
+              id="coords" name="coords" type="text" autocomplete="off" placeholder=" " required aria-required="true" />
+            <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300"
+              for="coords">الإحداثيات <span class="text-error">*</span></label>
           </div>
-        </section>
-
-        <section class="glass-card rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-white/50">
-          <h2 class="text-2xl font-bold text-primary-container mb-8 flex items-center gap-3">
-            <span class="material-symbols-outlined text-secondary">photo_camera</span>
-            التوثيق البصري
-          </h2>
-          <div class="space-y-4 max-w-2xl mx-auto">
-            <label class="block text-sm font-bold text-primary-container mr-2" for="site-input"
-              >صورة الموقع أو الفيديو</label
-            >
-            <p class="text-xs text-on-surface-variant mr-2">حتى 5 صور أو فيديو واحد — اختياري</p>
-            <input type="file" id="site-input" name="site_files" accept="image/*,video/*" multiple class="hidden" />
-            <button
-              type="button"
-              id="site-dropzone"
-              class="border-2 border-dashed border-outline-variant rounded-2xl p-8 flex flex-col items-center justify-center bg-surface-container-lowest hover:bg-secondary/5 hover:border-secondary transition-all cursor-pointer group w-full"
-            >
-              <span
-                class="material-symbols-outlined text-4xl text-outline group-hover:text-secondary mb-2 transition-colors"
-                >cloud_upload</span
-              >
-              <p class="text-sm text-on-surface-variant font-medium">اسحب الملفات هنا أو اضغط للرفع</p>
-              <p id="site-status" class="text-xs text-secondary mt-2 min-h-[1.25rem]"></p>
-            </button>
-            <div id="site-preview-wrap" class="hidden mt-4 space-y-3">
-              <div id="site-images-row" class="flex flex-wrap gap-2"></div>
-              <div id="site-video-wrap" class="hidden">
-                <video id="site-preview-video" class="max-h-48 w-full max-w-md rounded-lg border border-outline-variant" controls></video>
-                <button type="button" id="site-video-remove" class="mt-2 text-sm text-error font-medium">
-                  إزالة الفيديو
-                </button>
+          <div class="relative floating-label-container">
+            <input
+              class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
+              id="meter_num" name="meter_num" placeholder=" " type="text" />
+            <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300"
+              for="meter_num">رقم عداد الكهرباء <span class="text-error">*</span></label>
+          </div>
+          <div class="md:col-span-2 space-y-4">
+            <p class="text-sm font-bold text-primary-container mr-2">المخالفين <span class="text-error">*</span></p>
+            <p class="text-xs text-on-surface-variant mr-2 mb-2">حدد النوع ثم أدخل العدد عند التفعيل</p>
+            <div class="space-y-4 rounded-2xl border border-outline-variant/40 bg-surface-container-low/30 p-4">
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="hajj_visa">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_hajj_visa" name="viol_cb_hajj_visa"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>مخالف انظمة الحج (التأشيرات)</span>
+                </label>
+                <div id="viol_num_wrap_hajj_visa" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_hajj_visa" name="viol_num_hajj_visa" min="0" step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="residence_outside">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_residence_outside" name="viol_cb_residence_outside"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>مخالف نظام الاقامة (خارج مكة)</span>
+                </label>
+                <div id="viol_num_wrap_residence_outside" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_residence_outside" name="viol_num_residence_outside" min="0"
+                    step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="unknown_identity">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_unknown_identity" name="viol_cb_unknown_identity"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>مجهول هوية</span>
+                </label>
+                <div id="viol_num_wrap_unknown_identity" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_unknown_identity" name="viol_num_unknown_identity" min="0" step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="shelter_violator">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_shelter_violator" name="viol_cb_shelter_violator"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>ايواء مخالف</span>
+                </label>
+                <div id="viol_num_wrap_shelter_violator" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_shelter_violator" name="viol_num_shelter_violator" min="0" step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="covering_violator">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_covering_violator" name="viol_cb_covering_violator"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>تستر على مخالف</span>
+                </label>
+                <div id="viol_num_wrap_covering_violator" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_covering_violator" name="viol_num_covering_violator" min="0"
+                    step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="transporter_violator">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_transporter_violator" name="viol_cb_transporter_violator"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>ناقل مخالف</span>
+                </label>
+                <div id="viol_num_wrap_transporter_violator" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_transporter_violator" name="viol_num_transporter_violator" min="0"
+                    step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="security_wanted">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_security_wanted" name="viol_cb_security_wanted"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>مطلوب امني</span>
+                </label>
+                <div id="viol_num_wrap_security_wanted" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_security_wanted" name="viol_num_security_wanted" min="0" step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4" data-viol-key="other">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface sm:pt-3">
+                  <input type="checkbox" id="viol_cb_other" name="viol_cb_other"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>اخري</span>
+                </label>
+                <div id="viol_num_wrap_other"
+                  class="hidden w-full flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 sm:flex-1 sm:min-w-0">
+                  <input type="text" id="viol_label_other" name="viol_label_other"
+                    class="w-full flex-1 min-w-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="اسم النوع" autocomplete="off" />
+                  <input type="number" id="viol_num_other" name="viol_num_other" min="0" step="1"
+                    class="w-full sm:w-40 shrink-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                    placeholder="العدد" />
+                </div>
+              </div>
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="no_selection">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_no_selection" name="viol_cb_no_selection"
+                    class="survey-checkbox mt-1 rounded cursor-pointer" />
+                  <span>لا يوجد</span>
+                </label>
               </div>
             </div>
           </div>
-        </section>
-
-        <section class="glass-card rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-white/50">
-          <h2 class="text-2xl font-bold text-primary-container mb-8 flex items-center gap-3">
-            <span class="material-symbols-outlined text-secondary">analytics</span>
-            البيانات التقنية والميدانية
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="relative floating-label-container">
-              <input
-                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                id="coords"
-                name="coords"
-                type="text"
-                autocomplete="off"
-                placeholder=" "
-                required
-                aria-required="true"
-              />
-              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="coords"
-                >الإحداثيات <span class="text-error">*</span></label
-              >
-            </div>
-            <div class="relative floating-label-container">
-              <input
-                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                id="meter_num"
-                name="meter_num"
-                placeholder=" "
-                type="text"
-              />
-              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="meter_num"
-                >رقم عداد الكهرباء <span class="text-error">*</span></label
-              >
-            </div>
-            <div class="md:col-span-2 space-y-4">
-              <p class="text-sm font-bold text-primary-container mr-2">المخالفين <span class="text-error">*</span></p>
-              <p class="text-xs text-on-surface-variant mr-2 mb-2">حدد النوع ثم أدخل العدد عند التفعيل</p>
-              <div class="space-y-4 rounded-2xl border border-outline-variant/40 bg-surface-container-low/30 p-4">
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="hajj_visa">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_hajj_visa" name="viol_cb_hajj_visa" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>مخالف انظمة الحج (التأشيرات)</span>
-                  </label>
-                  <div id="viol_num_wrap_hajj_visa" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_hajj_visa"
-                      name="viol_num_hajj_visa"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="residence_outside">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_residence_outside" name="viol_cb_residence_outside" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>مخالف نظام الاقامة (خارج مكة)</span>
-                  </label>
-                  <div id="viol_num_wrap_residence_outside" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_residence_outside"
-                      name="viol_num_residence_outside"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="unknown_identity">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_unknown_identity" name="viol_cb_unknown_identity" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>مجهول هوية</span>
-                  </label>
-                  <div id="viol_num_wrap_unknown_identity" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_unknown_identity"
-                      name="viol_num_unknown_identity"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="shelter_violator">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_shelter_violator" name="viol_cb_shelter_violator" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>ايواء مخالف</span>
-                  </label>
-                  <div id="viol_num_wrap_shelter_violator" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_shelter_violator"
-                      name="viol_num_shelter_violator"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="covering_violator">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_covering_violator" name="viol_cb_covering_violator" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>تستر على مخالف</span>
-                  </label>
-                  <div id="viol_num_wrap_covering_violator" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_covering_violator"
-                      name="viol_num_covering_violator"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="transporter_violator">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_transporter_violator" name="viol_cb_transporter_violator" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>ناقل مخالف</span>
-                  </label>
-                  <div id="viol_num_wrap_transporter_violator" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_transporter_violator"
-                      name="viol_num_transporter_violator"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-viol-key="security_wanted">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
-                    <input type="checkbox" id="viol_cb_security_wanted" name="viol_cb_security_wanted" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>مطلوب امني</span>
-                  </label>
-                  <div id="viol_num_wrap_security_wanted" class="hidden w-full sm:w-40 shrink-0">
-                    <input
-                      type="number"
-                      id="viol_num_security_wanted"
-                      name="viol_num_security_wanted"
-                      min="0"
-                      step="1"
-                      class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-                <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4" data-viol-key="other">
-                  <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface sm:pt-3">
-                    <input type="checkbox" id="viol_cb_other" name="viol_cb_other" class="survey-checkbox mt-1 rounded cursor-pointer" />
-                    <span>اخري</span>
-                  </label>
-                  <div id="viol_num_wrap_other" class="hidden w-full flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 sm:flex-1 sm:min-w-0">
-                    <input
-                      type="text"
-                      id="viol_label_other"
-                      name="viol_label_other"
-                      class="w-full flex-1 min-w-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="اسم النوع"
-                      autocomplete="off"
-                    />
-                    <input
-                      type="number"
-                      id="viol_num_other"
-                      name="viol_num_other"
-                      min="0"
-                      step="1"
-                      class="w-full sm:w-40 shrink-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                      placeholder="العدد"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="relative floating-label-container">
-              <input
-                class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
-                id="meter_name"
-                name="meter_name"
-                type="text"
-                placeholder=" "
-              />
-              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="meter_name"
-                >اسم مدخل البيانات
-              </label>
-            </div>
-            <div class="md:col-span-2 relative floating-label-container">
-              <textarea
-                class="w-full bg-surface-container-low border-none rounded-2xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer resize-none"
-                id="notes"
-                name="notes"
-                placeholder=" "
-                rows="4"
-              ></textarea>
-              <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300" for="notes"
-                >تفصيل أو ملاحظات</label
-              >
-            </div>
+          <div class="relative floating-label-container">
+            <input
+              class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
+              id="meter_name" name="meter_name" type="text" placeholder=" " />
+            <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300"
+              for="meter_name">اسم مدخل البيانات
+            </label>
           </div>
-        </section>
-
-        <div
-          id="form-global-error"
-          class="hidden rounded-2xl border border-error/40 bg-error-container/80 text-on-error-container px-4 py-3 text-sm"
-          role="alert"
-        ></div>
-        <div
-          id="form-global-success"
-          class="hidden rounded-2xl border border-secondary/40 bg-secondary-fixed/40 text-on-secondary-container px-4 py-3 text-sm"
-          role="status"
-        ></div>
-
-        <div class="sticky bottom-8 whitespace-nowrap z-40">
-          <div class="glass-card p-4 rounded-3xl shadow-xl flex justify-between items-center border border-white/40">
-            <div class="hidden md:flex flex-col">
-              <span class="text-sm font-bold text-primary-container">جاهز للإرسال؟</span>
-              <span class="text-xs text-on-surface-variant">تأكد من مراجعة كافة الحقول المطلوبة</span>
-            </div>
-            <div class="flex flex-wrap gap-3 sm:gap-4 w-full md:w-auto justify-end">
-              <button
-                class="flex-1 sm:flex-none min-w-[10rem] py-4 px-8 rounded-2xl font-bold text-[#2a3f42] bg-white/90 border border-[#4A696C]/25 shadow-sm hover:bg-white hover:border-[#4A696C]/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                type="button"
-                id="btn-reset"
-              >
-                <span class="material-symbols-outlined text-xl" aria-hidden="true">restart_alt</span>
-                <span class="">إعادة تعيين النموذج</span>
-              </button>
-              <button
-                class="flex-1 sm:flex-none min-w-[12rem] py-4 px-12 rounded-2xl font-bold text-white bg-gold-gradient shadow-lg shadow-black/15 hover:shadow-black/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                type="submit"
-                id="btn-submit"
-                disabled
-                aria-disabled="true"
-              >
-                <span id="submit-label">إرسال البيانات</span>
-                <span class="material-symbols-outlined" id="submit-icon">send</span>
-              </button>
-            </div>
+          <div class="md:col-span-2 relative floating-label-container">
+            <textarea
+              class="w-full bg-surface-container-low border-none rounded-2xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer resize-none"
+              id="notes" name="notes" placeholder=" " rows="4"></textarea>
+            <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300"
+              for="notes">تفصيل أو ملاحظات</label>
           </div>
         </div>
-      </form>
-    </main>
+      </section>
+
+      <div id="form-global-error"
+        class="hidden rounded-2xl border border-error/40 bg-error-container/80 text-on-error-container px-4 py-3 text-sm"
+        role="alert"></div>
+      <div id="form-global-success"
+        class="hidden rounded-2xl border border-secondary/40 bg-secondary-fixed/40 text-on-secondary-container px-4 py-3 text-sm"
+        role="status"></div>
+
+      <div class="sticky bottom-8 whitespace-nowrap z-40">
+        <div class="glass-card p-4 rounded-3xl shadow-xl flex justify-between items-center border border-white/40">
+          <div class="hidden md:flex flex-col">
+            <span class="text-sm font-bold text-primary-container">جاهز للإرسال؟</span>
+            <span class="text-xs text-on-surface-variant">تأكد من مراجعة كافة الحقول المطلوبة</span>
+          </div>
+          <div class="flex flex-wrap gap-3 sm:gap-4 w-full md:w-auto justify-end">
+            <button
+              class="flex-1 sm:flex-none min-w-[10rem] py-4 px-8 rounded-2xl font-bold text-[#2a3f42] bg-white/90 border border-[#4A696C]/25 shadow-sm hover:bg-white hover:border-[#4A696C]/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              type="button" id="btn-reset">
+              <span class="material-symbols-outlined text-xl" aria-hidden="true">restart_alt</span>
+              <span class="">إعادة تعيين النموذج</span>
+            </button>
+            <button
+              class="flex-1 sm:flex-none min-w-[12rem] py-4 px-12 rounded-2xl font-bold text-white bg-gold-gradient shadow-lg shadow-black/15 hover:shadow-black/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              type="submit" id="btn-submit" disabled aria-disabled="true">
+              <span id="submit-label">إرسال البيانات</span>
+              <span class="material-symbols-outlined" id="submit-icon">send</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
 
 
 
-    <!-- ضبط: انسخ js/config.example.js إلى js/config.js واملأ الحقول (config.js مستبعد من git) -->
-    <script src="js/config.js"></script>
-    <script>
-      if (typeof window.CONFIG === "undefined") {
-        window.CONFIG = {
-          cloudName: "",
-          uploadPreset: "",
-          appsScriptUrl: "",
-          formSecret: "",
-          cloudinaryApiKey: "",
-          cloudinaryApiSecret: "",
-        };
-      }
-    </script>
-    <script src="js/upload.js"></script>
-    <script src="js/form.js"></script>
-  </body>
+  <!-- ضبط: انسخ js/config.example.js إلى js/config.js واملأ الحقول (config.js مستبعد من git) -->
+  <script src="js/config.js"></script>
+  <script>
+    if (typeof window.CONFIG === "undefined") {
+      window.CONFIG = {
+        cloudName: "",
+        uploadPreset: "",
+        appsScriptUrl: "",
+        formSecret: "",
+        cloudinaryApiKey: "",
+        cloudinaryApiSecret: "",
+      };
+    }
+  </script>
+  <!-- Crypto library for Cloudinary signature generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/form.js"></script>
+</body>
+
 </html>

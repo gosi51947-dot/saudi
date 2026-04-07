@@ -34,6 +34,7 @@
     "transporter_violator",
     "security_wanted",
     "other",
+    "no_selection",
   ];
 
   function violOtherLabelTrim() {
@@ -121,7 +122,8 @@
     if (!btn) return;
     var ok = fieldsAreValid();
     btn.disabled = !ok;
-    if (btn.setAttribute) btn.setAttribute("aria-disabled", ok ? "false" : "true");
+    if (btn.setAttribute)
+      btn.setAttribute("aria-disabled", ok ? "false" : "true");
   }
 
   function syncBuildingOtherWrap() {
@@ -209,11 +211,18 @@
 
   function parseViolNum(key) {
     var cb = $("viol_cb_" + key);
+    if (!cb || !cb.checked) return null;
+    if (key === "no_selection") {
+      return 1;
+    }
     var numEl = $("viol_num_" + key);
-    if (!cb || !cb.checked || !numEl) return null;
+    if (!numEl) return null;
     var raw = numEl.value;
     if (raw === "" || raw == null) return null;
-    var n = typeof numEl.valueAsNumber === "number" && !isNaN(numEl.valueAsNumber) ? numEl.valueAsNumber : parseInt(String(raw), 10);
+    var n =
+      typeof numEl.valueAsNumber === "number" && !isNaN(numEl.valueAsNumber)
+        ? numEl.valueAsNumber
+        : parseInt(String(raw), 10);
     return Number.isFinite(n) && n >= 0 ? n : null;
   }
 
@@ -250,8 +259,10 @@
       var key = VIOLATION_KEYS[i];
       var cb = $("viol_cb_" + key);
       if (!cb || !cb.checked) continue;
+      if (key === "no_selection") continue;
       var n = parseViolNum(key);
-      if (n === null) return "يرجى إدخال عدد صحيح (٠ أو أكثر) لكل نوع مخالفة تم تحديده";
+      if (n === null)
+        return "يرجى إدخال عدد صحيح (٠ أو أكثر) لكل نوع مخالفة تم تحديده";
       if (key === "other" && !violOtherLabelTrim()) {
         return "يرجى كتابة اسم النوع للخيار «اخري»";
       }
@@ -269,7 +280,8 @@
     var hayVal = haySelect === "اخري" ? valTrim("hay_other") : haySelect;
     var squareZone = valTrim("square_zone");
     var buildingType = valTrim("building_type");
-    var buildingOther = buildingType === "اخري" ? valTrim("building_other") : "";
+    var buildingOther =
+      buildingType === "اخري" ? valTrim("building_other") : "";
     var viol = collectViolationsPayload();
 
     return {
@@ -291,7 +303,10 @@
       violators_breakdown: viol.json,
       violators_detail: viol.json,
       notes: valTrim("notes"),
-      secret: typeof CONFIG !== "undefined" && CONFIG.formSecret ? CONFIG.formSecret : "",
+      secret:
+        typeof CONFIG !== "undefined" && CONFIG.formSecret
+          ? CONFIG.formSecret
+          : "",
     };
   }
 
@@ -301,9 +316,11 @@
     if (!valTrim("shift")) return "يرجى اختيار الوردية";
     if (!valTrim("square_zone")) return "يرجى اختيار المربع";
     if (!valTrim("hay")) return "يرجى اختيار الحي";
-    if (valTrim("hay") === "اخري" && !valTrim("hay_other")) return "يرجى كتابة اسم الحي";
+    if (valTrim("hay") === "اخري" && !valTrim("hay_other"))
+      return "يرجى كتابة اسم الحي";
     if (!valTrim("building_type")) return "يرجى اختيار نوع المبني";
-    if (valTrim("building_type") === "اخري" && !valTrim("building_other")) return "يرجى كتابة تفصيل نوع المبني";
+    if (valTrim("building_type") === "اخري" && !valTrim("building_other"))
+      return "يرجى كتابة تفصيل نوع المبني";
 
     if (!valTrim("coords")) return "يرجى إدخال الإحداثيات";
     if (!valTrim("meter_num")) return "يرجى إدخال رقم عداد الكهرباء";
@@ -404,9 +421,11 @@
       ) {
         var cx = d.coord_x != null ? String(d.coord_x).trim() : "";
         var cy = d.coord_y != null ? String(d.coord_y).trim() : "";
-        coordsVal = [cx, cy].filter(function (x) {
-          return x !== "";
-        }).join(" ، ");
+        coordsVal = [cx, cy]
+          .filter(function (x) {
+            return x !== "";
+          })
+          .join(" ، ");
       }
       setv("coords", coordsVal);
       setv("meter_num", d.meter_num);
@@ -417,7 +436,8 @@
       var breakdown = d.violators_breakdown || d.violators_detail;
       if (breakdown) {
         try {
-          var arr = typeof breakdown === "string" ? JSON.parse(breakdown) : breakdown;
+          var arr =
+            typeof breakdown === "string" ? JSON.parse(breakdown) : breakdown;
           if (Array.isArray(arr)) {
             for (var i = 0; i < VIOLATION_KEYS.length; i++) {
               setCheckboxAndNumber(VIOLATION_KEYS[i], false, "");
@@ -517,7 +537,9 @@
             if (bow) bow.classList.add("hidden");
             var how = $("hay_other_wrap");
             if (how) how.classList.add("hidden");
-            if (typeof window.__surveyMediaReset === "function") {
+            if (typeof window.__surveyMediaResetUiOnly === "function") {
+              window.__surveyMediaResetUiOnly();
+            } else if (typeof window.__surveyMediaReset === "function") {
               window.__surveyMediaReset();
             }
             localStorage.removeItem(DRAFT_KEY);
