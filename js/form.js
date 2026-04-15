@@ -33,13 +33,11 @@
     "covering_violator",
     "transporter_violator",
     "security_wanted",
-    "other",
+    "criminal_case",
     "no_selection",
   ];
 
-  function violOtherLabelTrim() {
-    return valTrim("viol_label_other");
-  }
+  // violOtherLabelTrim is no longer needed since 'other' violation type was removed
 
   function $(id) {
     return document.getElementById(id);
@@ -127,11 +125,22 @@
   }
 
   function syncBuildingOtherWrap() {
-    var wrap = $("building_other_wrap");
+    var wrapHotel = $("building_hotel_wrap");
+    var wrapOther = $("building_other_wrap");
     var sel = $("building_type");
-    if (!wrap || !sel) return;
-    if ((sel.value || "").trim() === "اخري") wrap.classList.remove("hidden");
-    else wrap.classList.add("hidden");
+    if (!sel) return;
+
+    if (wrapHotel) {
+      if ((sel.value || "").trim() === "فندق")
+        wrapHotel.classList.remove("hidden");
+      else wrapHotel.classList.add("hidden");
+    }
+
+    if (wrapOther) {
+      if ((sel.value || "").trim() === "اخري")
+        wrapOther.classList.remove("hidden");
+      else wrapOther.classList.add("hidden");
+    }
   }
 
   function syncHayOtherWrap() {
@@ -152,10 +161,6 @@
     } else {
       wrap.classList.add("hidden");
       if (num) num.value = "";
-      if (key === "other") {
-        var lo = $("viol_label_other");
-        if (lo) lo.value = "";
-      }
     }
   }
 
@@ -172,6 +177,8 @@
       syncBuildingOtherWrap();
       updateSubmitButtonState();
     });
+    var bh = $("building_hotel");
+    if (bh) bh.addEventListener("input", updateSubmitButtonState);
     var bo = $("building_other");
     if (bo) bo.addEventListener("input", updateSubmitButtonState);
     syncBuildingOtherWrap();
@@ -200,10 +207,6 @@
         });
         var num = $("viol_num_" + key);
         if (num) num.addEventListener("input", updateSubmitButtonState);
-        if (key === "other") {
-          var lo = $("viol_label_other");
-          if (lo) lo.addEventListener("input", updateSubmitButtonState);
-        }
       })(VIOLATION_KEYS[i]);
     }
     syncAllViolationRows();
@@ -236,7 +239,6 @@
       var n = parseViolNum(key);
       if (n === null) continue;
       var entry = { key: key, count: n };
-      if (key === "other") entry.label = violOtherLabelTrim();
       list.push(entry);
       total += n;
     }
@@ -263,9 +265,6 @@
       var n = parseViolNum(key);
       if (n === null)
         return "يرجى إدخال عدد صحيح (٠ أو أكثر) لكل نوع مخالفة تم تحديده";
-      if (key === "other" && !violOtherLabelTrim()) {
-        return "يرجى كتابة اسم النوع للخيار «اخري»";
-      }
     }
     var viol = collectViolationsPayload();
     if (viol.total < 1) {
@@ -280,6 +279,8 @@
     var hayVal = haySelect === "اخري" ? valTrim("hay_other") : haySelect;
     var squareZone = valTrim("square_zone");
     var buildingType = valTrim("building_type");
+    var buildingHotel =
+      buildingType === "فندق" ? valTrim("building_hotel") : "";
     var buildingOther =
       buildingType === "اخري" ? valTrim("building_other") : "";
     var viol = collectViolationsPayload();
@@ -297,6 +298,7 @@
       square_zone: squareZone,
       hay: hayVal,
       building_type: buildingType,
+      building_hotel: buildingHotel,
       building_other: buildingOther,
       site_image_urls: JSON.stringify(imageUrls || []),
       site_video_url: videoUrl || "",
@@ -325,6 +327,8 @@
     if (valTrim("hay") === "اخري" && !valTrim("hay_other"))
       return "يرجى كتابة اسم الحي";
     if (!valTrim("building_type")) return "يرجى اختيار نوع المبني";
+    if (valTrim("building_type") === "فندق" && !valTrim("building_hotel"))
+      return "يرجى كتابة اسم الفندق";
     if (valTrim("building_type") === "اخري" && !valTrim("building_other"))
       return "يرجى كتابة تفصيل نوع المبني";
 
@@ -379,7 +383,7 @@
     }
   }
 
-  function setCheckboxAndNumber(key, checked, countVal, labelVal) {
+  function setCheckboxAndNumber(key, checked, countVal) {
     var cb = $("viol_cb_" + key);
     var num = $("viol_num_" + key);
     if (cb) {
@@ -387,16 +391,6 @@
     }
     if (num && countVal != null && countVal !== "") {
       num.value = String(countVal);
-    }
-    if (key === "other") {
-      var lo = $("viol_label_other");
-      if (lo) {
-        if (!checked) {
-          lo.value = "";
-        } else if (labelVal != null && labelVal !== "") {
-          lo.value = String(labelVal);
-        }
-      }
     }
     syncViolationRow(key);
   }
@@ -416,6 +410,7 @@
       setv("square_zone", d.square_zone);
       setv("hay", d.hay);
       setv("building_type", d.building_type);
+      setv("building_hotel", d.building_hotel);
       setv("building_other", d.building_other);
       syncBuildingOtherWrap();
       syncHayOtherWrap();
@@ -501,8 +496,10 @@
       resetBtn.addEventListener("click", function () {
         form.reset();
         resetViolationUi();
-        var bow = $("building_other_wrap");
-        if (bow) bow.classList.add("hidden");
+        var bhotel = $("building_hotel_wrap");
+        if (bhotel) bhotel.classList.add("hidden");
+        var bother = $("building_other_wrap");
+        if (bother) bother.classList.add("hidden");
         if (typeof window.__surveyMediaReset === "function") {
           window.__surveyMediaReset();
         }
@@ -539,8 +536,10 @@
             showSuccess("تم إرسال البيانات بنجاح. شكراً لك.");
             form.reset();
             resetViolationUi();
-            var bow = $("building_other_wrap");
-            if (bow) bow.classList.add("hidden");
+            var bhotel = $("building_hotel_wrap");
+            if (bhotel) bhotel.classList.add("hidden");
+            var bother = $("building_other_wrap");
+            if (bother) bother.classList.add("hidden");
             var how = $("hay_other_wrap");
             if (how) how.classList.add("hidden");
             if (typeof window.__surveyMediaResetUiOnly === "function") {

@@ -6,7 +6,7 @@ const VIOLATION_LABELS = {
   shelter_violator: "ايواء مخالف",
   covering_violator: "تستر على مخالف",
   transporter_violator: "ناقل مخالف",
-  security_wanted: "مطلوب امني",
+  security_wanted: "مطلوب",
   other: "اخري",
 };
 

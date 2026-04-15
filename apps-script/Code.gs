@@ -7,7 +7,7 @@
  * 4) انشر: Deploy → New deployment → New version.
  */
 
-var SPREADSHEET_ID = "19sCmbEhI-NxuU7d-w5Gz6gx9xMEB_ZxcPwOZ1tXRjhE";
+var SPREADSHEET_ID = "14dRLB-LRf-s6nVm7UFw9TBimimOygEGjA8G-rbifONI";
 var SHEET_NAME = "Sheet1";
 var FORMS_SECRET = "";
 
@@ -18,6 +18,7 @@ var COLUMN_HEADERS = [
   "المربع",
   "الحي",
   "نوع المبني",
+  "اسم الفندق",
   "تفصيل المبني",
   "صورة 1",
   "صورة 2",
@@ -41,8 +42,8 @@ var VIOLATION_LABELS = {
   shelter_violator: "ايواء مخالف",
   covering_violator: "تستر على مخالف",
   transporter_violator: "ناقل مخالف",
-  security_wanted: "مطلوب امني",
-  other: "اخري",
+  security_wanted: "مطلوب",
+  criminal_case: "قضية جنائية",
   no_selection: "لا يوجد",
 };
 
@@ -92,42 +93,43 @@ function doPost(e) {
       data.square_zone || "", // 4
       data.hay || "", // 5
       data.building_type || "", // 6
-      data.building_other || "", // 7
+      data.building_hotel || "", // 7
+      data.building_other || "", // 8
       "",
       "",
       "",
       "",
-      "", // 8, 9, 10, 11, 12 (خانات صور الموقع)
-      "", // 13 (خانة الفيديو)
-      data.coords || "", // 14
-      data.meter_num || "", // 15
-      data.violators || "", // 16
-      violText, // 17
-      data.notes || "", // 18
-      data.meter_name || "", // 19
+      "", // 9, 10, 11, 12, 13 (خانات صور الموقع)
+      "", // 14 (خانة الفيديو)
+      data.coords || "", // 15
+      data.meter_num || "", // 16
+      data.violators || "", // 17
+      violText, // 18
+      data.notes || "", // 19
+      data.meter_name || "", // 20
     ];
 
     sheet.appendRow(row);
     var lastRow = sheet.getLastRow();
 
-    // ── تعيين روابط الصور بشكل منفصل في أعمدتها (8-12)
+    // ── تعيين روابط الصور بشكل منفصل في أعمدتها (9-13)
     for (var i = 0; i < 5; i++) {
-      var col = 8 + i;
+      var col = 9 + i;
       if (imageUrls[i]) {
         setCellLink(sheet, lastRow, col, imageUrls[i], "عرض الصورة " + (i + 1));
       }
     }
 
-    // ── تعيين رابط الفيديو في عموده الخاص (13)
+    // ── تعيين رابط الفيديو في عموده الخاص (14)
     if (videoUrl) {
-      setCellLink(sheet, lastRow, 13, videoUrl, "فتح الفيديو");
+      setCellLink(sheet, lastRow, 14, videoUrl, "فتح الفيديو");
     }
 
-    // ── تحويل الإحداثيات إلى رابط Google Maps (14)
+    // ── تحويل الإحداثيات إلى رابط Google Maps (15)
     if (data.coords) {
       var coordsUrl = coordsToGoogleMapsLink(data.coords);
       if (coordsUrl) {
-        setCellLink(sheet, lastRow, 14, coordsUrl, data.coords);
+        setCellLink(sheet, lastRow, 15, coordsUrl, data.coords);
       }
     }
 

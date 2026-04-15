@@ -228,8 +228,19 @@
             <option value="" selected disabled>اختر نوع المبني</option>
             <option value="شقة">شقة</option>
             <option value="فيلا">فيلا</option>
+            <option value="فندق">فندق</option>
+            <option value="منزل شعبي">منزل شعبي</option>
+            <option value="مستودع">مستودع</option>
+            <option value="مزرعة">مزرعة</option>
             <option value="اخري">اخري</option>
           </select>
+        </div>
+        <div id="building_hotel_wrap" class="hidden mt-4 space-y-2">
+          <label class="block text-sm font-bold text-primary-container mr-2" for="building_hotel">اسم الفندق <span
+              class="text-error" aria-hidden="true">*</span></label>
+          <input id="building_hotel" name="building_hotel" type="text" autocomplete="off"
+            class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+            placeholder="اكتب اسم الفندق..." />
         </div>
         <div id="building_other_wrap" class="hidden mt-4 space-y-2">
           <label class="block text-sm font-bold text-primary-container mr-2" for="building_other">تفصيل نوع المبني <span
@@ -379,7 +390,7 @@
                 <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
                   <input type="checkbox" id="viol_cb_security_wanted" name="viol_cb_security_wanted"
                     class="survey-checkbox mt-1 rounded cursor-pointer" />
-                  <span>مطلوب امني</span>
+                  <span>مطلوب </span>
                 </label>
                 <div id="viol_num_wrap_security_wanted" class="hidden w-full sm:w-40 shrink-0">
                   <input type="number" id="viol_num_security_wanted" name="viol_num_security_wanted" min="0" step="1"
@@ -387,19 +398,16 @@
                     placeholder="العدد" />
                 </div>
               </div>
-              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4" data-viol-key="other">
-                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface sm:pt-3">
-                  <input type="checkbox" id="viol_cb_other" name="viol_cb_other"
+              <div class="viol-row flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                data-viol-key="criminal_case">
+                <label class="flex items-start gap-3 cursor-pointer flex-1 text-sm font-medium text-on-surface">
+                  <input type="checkbox" id="viol_cb_criminal_case" name="viol_cb_criminal_case"
                     class="survey-checkbox mt-1 rounded cursor-pointer" />
-                  <span>اخري</span>
+                  <span>قضية جنائية</span>
                 </label>
-                <div id="viol_num_wrap_other"
-                  class="hidden w-full flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 sm:flex-1 sm:min-w-0">
-                  <input type="text" id="viol_label_other" name="viol_label_other"
-                    class="w-full flex-1 min-w-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
-                    placeholder="اسم النوع" autocomplete="off" />
-                  <input type="number" id="viol_num_other" name="viol_num_other" min="0" step="1"
-                    class="w-full sm:w-40 shrink-0 bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+                <div id="viol_num_wrap_criminal_case" class="hidden w-full sm:w-40 shrink-0">
+                  <input type="number" id="viol_num_criminal_case" name="viol_num_criminal_case" min="0" step="1"
+                    class="w-full bg-surface-container-low border-none rounded-xl py-3 px-3 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
                     placeholder="العدد" />
                 </div>
               </div>
@@ -413,7 +421,7 @@
               </div>
             </div>
           </div>
-       
+
           <div class="md:col-span-2 relative floating-label-container">
             <textarea
               class="w-full bg-surface-container-low border-none rounded-2xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer resize-none"
@@ -421,7 +429,7 @@
             <label class="absolute right-4 top-4 text-outline pointer-events-none transition-all duration-300"
               for="notes">تفصيل أو ملاحظات</label>
           </div>
-             <div class="relative floating-label-container">
+          <div class="relative floating-label-container">
             <input
               class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer"
               id="meter_name" name="meter_name" type="text" placeholder=" " />
