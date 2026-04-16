@@ -422,6 +422,26 @@
             </div>
           </div>
 
+          <!-- الاجراء المتخذ -->
+          <div class="md:col-span-2 space-y-2 mt-2">
+            <label class="block text-sm font-bold text-primary-container mr-2" for="action_taken">الاجراء المتخذ <span class="text-error" aria-hidden="true">*</span></label>
+            <select id="action_taken" name="action_taken"
+              class="survey-select w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-0 transition-all"
+              autocomplete="off" required>
+              <option value="" selected disabled>اختر الاجراء</option>
+              <option value="تم إغلاق المنزل">تم إغلاق المنزل</option>
+              <option value="لم يتم إغلاق المنزل">لم يتم إغلاق المنزل</option>
+            </select>
+          </div>
+
+          <!-- تحديد السبب - يظهر فقط عند اختيار "لم يتم إغلاق المنزل" -->
+          <div id="action_reason_wrap" class="hidden md:col-span-2 space-y-2">
+            <label class="block text-sm font-bold text-primary-container mr-2" for="action_reason">تحديد السبب <span class="text-error" aria-hidden="true">*</span></label>
+            <input id="action_reason" name="action_reason" type="text" autocomplete="off"
+              class="w-full bg-surface-container-low border-none rounded-xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all"
+              placeholder="اكتب سبب عدم إغلاق المنزل..." />
+          </div>
+
           <div class="md:col-span-2 relative floating-label-container">
             <textarea
               class="w-full bg-surface-container-low border-none rounded-2xl py-4 px-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed transition-all peer resize-none"

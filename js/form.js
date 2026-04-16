@@ -124,6 +124,19 @@
       btn.setAttribute("aria-disabled", ok ? "false" : "true");
   }
 
+  function syncActionTakenWrap() {
+    var wrap = $("action_reason_wrap");
+    var sel = $("action_taken");
+    if (!wrap || !sel) return;
+    if ((sel.value || "").trim() === "\u0644\u0645 \u064a\u062a\u0645 \u0625\u063a\u0644\u0627\u0642 \u0627\u0644\u0645\u0646\u0632\u0644") {
+      wrap.classList.remove("hidden");
+    } else {
+      wrap.classList.add("hidden");
+      var reasonEl = $("action_reason");
+      if (reasonEl) reasonEl.value = "";
+    }
+  }
+
   function syncBuildingOtherWrap() {
     var wrapHotel = $("building_hotel_wrap");
     var wrapOther = $("building_other_wrap");
@@ -168,6 +181,18 @@
     for (var i = 0; i < VIOLATION_KEYS.length; i++) {
       syncViolationRow(VIOLATION_KEYS[i]);
     }
+  }
+
+  function bindActionTaken() {
+    var sel = $("action_taken");
+    if (!sel) return;
+    sel.addEventListener("change", function () {
+      syncActionTakenWrap();
+      updateSubmitButtonState();
+    });
+    var ar = $("action_reason");
+    if (ar) ar.addEventListener("input", updateSubmitButtonState);
+    syncActionTakenWrap();
   }
 
   function bindBuildingType() {
@@ -291,6 +316,9 @@
     });
     var videoUrl = m.siteVideo ? m.siteVideo.url : null;
 
+    var actionTaken = valTrim("action_taken");
+    var actionReason = actionTaken === "\u0644\u0645 \u064a\u062a\u0645 \u0625\u063a\u0644\u0627\u0642 \u0627\u0644\u0645\u0646\u0632\u0644" ? valTrim("action_reason") : "";
+
     return {
       timestamp: new Date().toISOString(),
       hijri_date: valTrim("hijri_date"),
@@ -310,6 +338,8 @@
       violators: String(viol.total),
       violators_breakdown: viol.json,
       violators_detail: viol.json,
+      action_taken: actionTaken,
+      action_reason: actionReason,
       notes: valTrim("notes"),
       secret:
         typeof CONFIG !== "undefined" && CONFIG.formSecret
@@ -337,6 +367,10 @@
 
     var vErr = violationsValidationError();
     if (vErr) return vErr;
+
+    if (!valTrim("action_taken")) return "يرجى اختيار الاجراء المتخذ";
+    if (valTrim("action_taken") === "لم يتم إغلاق المنزل" && !valTrim("action_reason"))
+      return "يرجى تحديد سبب عدم إغلاق المنزل";
 
     return null;
   }
@@ -474,6 +508,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     setHijriDateHidden();
     var form = $("survey-form");
+    bindActionTaken();
     bindBuildingType();
     bindHay();
     bindViolationSection();
@@ -500,6 +535,8 @@
         if (bhotel) bhotel.classList.add("hidden");
         var bother = $("building_other_wrap");
         if (bother) bother.classList.add("hidden");
+        var arWrap = $("action_reason_wrap");
+        if (arWrap) arWrap.classList.add("hidden");
         if (typeof window.__surveyMediaReset === "function") {
           window.__surveyMediaReset();
         }
@@ -540,6 +577,8 @@
             if (bhotel) bhotel.classList.add("hidden");
             var bother = $("building_other_wrap");
             if (bother) bother.classList.add("hidden");
+            var arWrap2 = $("action_reason_wrap");
+            if (arWrap2) arWrap2.classList.add("hidden");
             var how = $("hay_other_wrap");
             if (how) how.classList.add("hidden");
             if (typeof window.__surveyMediaResetUiOnly === "function") {
@@ -549,6 +588,7 @@
             }
             localStorage.removeItem(DRAFT_KEY);
             setHijriDateHidden();
+            syncActionTakenWrap();
             syncBuildingOtherWrap();
             syncHayOtherWrap();
             syncAllViolationRows();

@@ -7,7 +7,7 @@
  * 4) انشر: Deploy → New deployment → New version.
  */
 
-var SPREADSHEET_ID = "14dRLB-LRf-s6nVm7UFw9TBimimOygEGjA8G-rbifONI";
+var SPREADSHEET_ID = "12UOu4ud9Uq0iPd8iSkli6Nirs7X1knGKVF_aEvPJ3iA";
 var SHEET_NAME = "Sheet1";
 var FORMS_SECRET = "";
 
@@ -30,6 +30,8 @@ var COLUMN_HEADERS = [
   "رقم عداد الكهرباء",
   "إجمالي المخالفين",
   "تفاصيل المخالفين (النوع والعدد)",
+  "الاجراء المتخذ",
+  "سبب عدم الإغلاق",
   "ملاحظات",
   "اسم المعد",
 ];
@@ -105,8 +107,10 @@ function doPost(e) {
       data.meter_num || "", // 16
       data.violators || "", // 17
       violText, // 18
-      data.notes || "", // 19
-      data.meter_name || "", // 20
+      data.action_taken || "", // 19
+      data.action_reason || "", // 20
+      data.notes || "", // 21
+      data.meter_name || "", // 22
     ];
 
     sheet.appendRow(row);
